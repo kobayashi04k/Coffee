@@ -1,0 +1,28 @@
+---
+title: "coffee_graphs"
+author: "Kyle Kobayashi"
+date: "11/17/2021"
+output: html_document
+---
+
+```{r load_packages, include=FALSE}
+library(tidyverse)
+```
+
+
+```{r load_data}
+coffee_reviews <- read_csv("data/cleaned_coffee.csv")
+
+```
+
+
+```{r tests, fig.height=10}
+
+ggplot(coffee_reviews,
+       aes(y = country_of_origin,
+           fill = country_of_origin)) +
+  geom_bar() +
+  theme(legend.position = "none")
+
+```
+
