@@ -18,11 +18,29 @@ coffee_reviews <- read_csv("data/cleaned_coffee.csv")
 
 ```{r tests, fig.height=10}
 
-ggplot(coffee_reviews,
-       aes(y = country_of_origin,
-           fill = country_of_origin)) +
-  geom_bar() +
-  theme(legend.position = "none")
+# Dataset 
+data <- matrix( sample(seq(1,2000),200), ncol = 10 )
+rownames(data) <- paste0("sample_" , seq(1,20))
+colnames(data) <- paste0("variable",seq(1,10))
+
+# Euclidean distance
+dist <- dist(data[ , c(4:8)] , diag=TRUE)
+
+# Hierarchical Clustering with hclust
+hc <- hclust(dist)
+
+# Plot the result
+plot(hc)
 
 ```
+```{r meh}
+library(pvclust)
+data(lung) # 916 genes for 73 subjects
 
+#set.seed(1234)
+result <- pvclust(lung[1:10, 1:10], method.dist="cor", 
+                  method.hclust="average", nboot=20)
+
+plot(result)
+
+```
