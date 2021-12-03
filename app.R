@@ -7,8 +7,11 @@
 #    http://shiny.rstudio.com/
 #
 
+library(tidyverse)
 library(shiny)
 library(shinythemes)
+library(shinyjs)
+
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
@@ -84,7 +87,7 @@ ui <- fluidPage(
                                                                                            "Uniformity" = 8),
                                                                             selected = 1),
                                                      ),
-                                                     plotOutput("plot")),
+                                                     plotOutput("plot_map")),
                                             tabPanel("Altitude Graph", 
                                                      br(),
                                                      sidebarPanel(
@@ -100,40 +103,28 @@ ui <- fluidPage(
                                                                                            "Uniformity" = 8),
                                                                             selected = 1),
                                                      ),
-                                                     plotOutput("plot")),
-                                            tabPanel("Coffee World Cup", 
+                                                     plotOutput("plot_altitude")),
+                                            tabPanel(
+                                                plotOutput("plot_stack")
+                                            ),
+                                            
+                                            tabPanel("Coffee Trivia",
                                                      br(),
-                                                     fluidRow(
-                                                         column(3,
-                                                                actionButton("action", label = "Action"),
-                                                                br(),
-                                                                actionButton("action", label = "Action"),
-                                                                br(),
-                                                                actionButton("action", label = "Action"),
-                                                                br(),
-                                                                actionButton("action", label = "Action"),
-                                                                br()
-                                                                ),
-                                                         column(3,
-                                                                actionButton("action", label = "Action"),
-                                                                actionButton("action", label = "Action"),
-                                                                actionButton("action", label = "Action"),
-                                                                actionButton("action", label = "Action")
-                                                         ),
-                                                         column(3,
-                                                                actionButton("action", label = "Action"),
-                                                                actionButton("action", label = "Action"),
-                                                                actionButton("action", label = "Action"),
-                                                                actionButton("action", label = "Action")
-                                                         ),
-                                                         column(3,
-                                                                actionButton("action", label = "Action"),
-                                                                actionButton("action", label = "Action"),
-                                                                actionButton("action", label = "Action"),
-                                                                actionButton("action", label = "Action")
-                                                         )
-                                                     ),
-                                                     plotOutput("plot"))
+                                                     fluidPage(
+                                                        useShinyjs(),
+                                                        uiOutput("question_home"),
+                                                        uiOutput("question_one"),
+                                                        uiOutput("question_two"),
+                                                        uiOutput("question_three"),
+                                                        uiOutput("question_four"),
+                                                        uiOutput("question_five"),
+                                                        uiOutput("question_six"),
+                                                        uiOutput("question_seven"),
+                                                        uiOutput("question_eight"),
+                                                        uiOutput("question_nine"),
+                                                        uiOutput("question_ten")
+                                                     )
+                                            )
                                 )
                             )
                    ),
@@ -174,9 +165,193 @@ ui <- fluidPage(
     )
 
 # Define server logic required to draw a histogram
-server <- function(input, output) {
-
-   
+server <- function(input, output, session) {
+    
+    # Visualization for Trivia Game
+    output$question_home <- renderUI({
+        div(id = "this_home",
+            h1("Welcome!"),
+            p("Lorem ipsum dolor sit amet, consectetur adipiscing elit. "),
+            br(),
+            actionButton("button_start", "Start")
+        )
+    })
+    
+    observeEvent(input$button_start, {
+        shinyjs::hide(id = "this_home")
+        shinyjs::show(id = "one")
+    })
+    
+    
+    # Question 1
+    output$question_one <- renderUI({
+        div(id = "one", hidden = TRUE,
+            h3("Question 1"),
+            p("Which country produces the most coffee?"),
+            radioButtons("radio_one",
+                         label = NULL,
+                         inline = TRUE,
+                         choices = list("Colombia" = 1, 
+                                        "Brazil" = 2, 
+                                        "Jamaica" = 3,
+                                        "Ethiopia" = 4), 
+                         ),
+            br(),    
+            actionButton("button_one", "Next Question")
+        )
+    })
+    
+    observeEvent(input$button_one, {
+        shinyjs::hide(id = "one")
+        shinyjs::show(id = "two")
+    })
+    
+    
+    # Question 2
+    output$question_two <- renderUI({
+        div(id = "two", hidden = TRUE,
+            h3("Question 2"),
+            p("Lorem ipsum dolor sit amet, consectetur adipiscing elit. "),
+            br(),
+            actionButton("button_two", "Next Question")
+        )
+    })
+    
+    observeEvent(input$button_two, {
+        shinyjs::hide(id = "two")
+        shinyjs::show(id = "three")
+    })
+    
+    
+    # Question 3
+    output$question_three <- renderUI({
+        div(id = "three", hidden = TRUE,
+            h3("Question 3"),
+            p("Lorem ipsum dolor sit amet, consectetur adipiscing elit. "),
+            br(),
+            actionButton("button_three", "Next Question")
+        )
+    })
+    
+    observeEvent(input$button_three, {
+        shinyjs::hide(id = "three")
+        shinyjs::show(id = "four")
+    })
+    
+    
+    # Question 4
+    output$question_four <- renderUI({
+        div(id = "four", hidden = TRUE,
+            h3("Question 4"),
+            p("Lorem ipsum dolor sit amet, consectetur adipiscing elit. "),
+            br(),
+            actionButton("button_four", "Next Question")
+        )
+    })
+    
+    observeEvent(input$button_four, {
+        shinyjs::hide(id = "four")
+        shinyjs::show(id = "five")
+    })
+    
+    
+    # Question 5
+    output$question_five <- renderUI({
+        div(id = "five", hidden = TRUE,
+            h3("Question 5"),
+            p("Lorem ipsum dolor sit amet, consectetur adipiscing elit. "),
+            br(),
+            actionButton("button_five", "Next Question")
+        )
+    })
+    
+    observeEvent(input$button_five, {
+        shinyjs::hide(id = "five")
+        shinyjs::show(id = "six")
+    })
+    
+    
+    # Question 6
+    output$question_six <- renderUI({
+        div(id = "six", hidden = TRUE,
+            h3("Question 6"),
+            p("Lorem ipsum dolor sit amet, consectetur adipiscing elit. "),
+            br(),
+            actionButton("button_six", "Next Question")
+        )
+    })
+    
+    observeEvent(input$button_six, {
+        shinyjs::hide(id = "six")
+        shinyjs::show(id = "seven")
+    })
+    
+    
+    # Question 7
+    output$question_seven <- renderUI({
+        div(id = "seven", hidden = TRUE,
+            h3("Question 7"),
+            p("Lorem ipsum dolor sit amet, consectetur adipiscing elit. "),
+            br(),
+            actionButton("button_seven", "Next Question")
+        )
+    })
+    
+    observeEvent(input$button_seven, {
+        shinyjs::hide(id = "seven")
+        shinyjs::show(id = "eight")
+    })
+    
+    
+    # Question 8
+    output$question_eight <- renderUI({
+        div(id = "eight", hidden = TRUE,
+            h3("Question 8"),
+            p("Lorem ipsum dolor sit amet, consectetur adipiscing elit. "),
+            br(),
+            actionButton("button_eight", "Next Question")
+        )
+    })
+    
+    observeEvent(input$button_eight, {
+        shinyjs::hide(id = "eight")
+        shinyjs::show(id = "nine")
+    })
+    
+    
+    # Question 9
+    output$question_nine <- renderUI({
+        div(id = "nine", hidden = TRUE,
+            h3("Question 9"),
+            p("Lorem ipsum dolor sit amet, consectetur adipiscing elit. "),
+            br(),
+            actionButton("button_nine", "Next Question")
+        )
+    })
+    
+    observeEvent(input$button_nine, {
+        shinyjs::hide(id = "nine")
+        shinyjs::show(id = "ten")
+    })
+    
+    
+    # Question 10
+    output$question_ten <- renderUI({
+        div(id = "ten", hidden = TRUE,
+            h3("Question 10"),
+            p("Lorem ipsum dolor sit amet, consectetur adipiscing elit. "),
+            br(),
+            #actionButton("button_ten", "Next Question")
+        )
+    })
+    
+    # observeEvent(input$button_ten, {
+    #     shinyjs::hide(id = "two")
+    #     shinyjs::show(id = "three")
+    # })
+    
+    
+    
 }
 
 # Run the application 

@@ -13,6 +13,8 @@ library(tidyverse)
 ```{r load_data}
 coffee_reviews <- read_csv("data/cleaned_coffee.csv")
 
+coffee_avg <- read_csv("data/coffee_avg.csv")
+
 ```
 
 
@@ -34,13 +36,13 @@ plot(hc)
 
 ```
 ```{r meh}
-library(pvclust)
-data(lung) # 916 genes for 73 subjects
 
-#set.seed(1234)
-result <- pvclust(lung[1:10, 1:10], method.dist="cor", 
-                  method.hclust="average", nboot=20)
+condition <- rep(c())
 
-plot(result)
+      ggplot(coffee_avg,
+           aes(y = Country.KG,
+               x = Total.Cup.Points.Avg.KG,
+               position = "fill")) +
+      geom_col()
 
 ```
