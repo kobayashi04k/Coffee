@@ -4,7 +4,9 @@ library(shinythemes)
 library(shinyjs)
 library(leaflet)
 
-# read csv files
+
+### Read in the dataset
+all_data <- read_csv("data/arabica_data_cleaned.csv")
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
@@ -44,7 +46,7 @@ ui <- fluidPage(
                                           img(src = "placeholder.png",
                                               height = "100%", 
                                               width = "100%"),
-                                          h4("Journey Map"),
+                                          h4("Journey Map")
                                    ),
                                    column(1),
                                    column(5,
@@ -57,18 +59,18 @@ ui <- fluidPage(
                                           img(src = "placeholder.png",
                                               height = "100%", 
                                               width = "100%"),
-                                          h4("Screen Mockup"),
+                                          h4("Screen Mockup")
                                    ))
                             
                             ),
                    tabPanel("Visualizations",
                             
-                            mainPanel(
+                            
                                 tabsetPanel(type = "tabs",
                                             tabPanel("Map", 
                                                      br(),
                                                      sidebarPanel(
-                                                         selectizeInput("country_select",
+                                                         selectizeInput("select_country",
                                                                         label = h5("Country"),
                                                                         choices = list("Brazil (BR)", 
                                                                                        "Burundi (BI)", 
@@ -130,24 +132,76 @@ ui <- fluidPage(
                                                      br(),
                                                      sidebarPanel(
                                                          radioButtons("radio_altitude", label = h3("Review Factors"),
-                                                                      choices = list("Choice 1" = 1, "Choice 2" = 2, "Choice 3" = 3), 
-                                                                      selected = 1),
+                                                                      choices = list("Aroma" = 1, "Flavor" = 2, "Aftertaste" = 3,
+                                                                                     "Acidity" = 4, "Body" = 5, "Balance" = 6,
+                                                                                     "Uniformity" = 7, "Clean Cup" = 8, "Sweetness" = 9), 
+                                                                      selected = 1)
                                                      ),
                                                      mainPanel(
                                                          plotOutput("plot_altitude")
                                                      )
                                             ),
+
                                             tabPanel(
                                                 "Stacked Graph",
                                                 br(),
                                                 sidebarPanel(
-                                                    selectInput("select", 
-                                                                label = h5("Country"), 
-                                                                choices = list("Choice 1" = 1, "Choice 2" = 2, "Choice 3" = 3), 
+                                                    selectInput("select_stack",
+                                                                label = h5("Country"),
+                                                                choices = list("Choice 1" = 1, "Choice 2" = 2, "Choice 3" = 3),
+                                                                selected = 1)
+                                                ),
+                                                mainPanel(
+                                                    plotOutput("plot_stack")
+                                                )
+                                            ),
+                                            
+                                            tabPanel(
+                                                "Radar Graph",
+                                                br(),
+                                                sidebarPanel(
+                                                    selectInput("radar_country", 
+                                                                label = h3("Select Country"), 
+                                                                choices = list("Brazil ",
+                                                                               "Burundi ",
+                                                                               "China ",
+                                                                               "Colombia ",
+                                                                               "Costa Rica ",
+                                                                               "Cote d'Ivoire ",
+                                                                               "Edcuador ",
+                                                                               "El Salvador ",
+                                                                               "Ethiopia ",
+                                                                               "Guatemala ",
+                                                                               "Haiti ",
+                                                                               "Honduras ",
+                                                                               "India ",
+                                                                               "Indonesia ",
+                                                                               "Japan ",
+                                                                               "Kenya ",
+                                                                               "Laos",
+                                                                               "Malawi",
+                                                                               "Mauritius",
+                                                                               "Mexico",
+                                                                               "Myanmar",
+                                                                               "Nicaragua",
+                                                                               "Panama",
+                                                                               "Papua New Guinea",
+                                                                               "Peru",
+                                                                               "Philippines",
+                                                                               "Puerto Rico",
+                                                                               "Rwanda",
+                                                                               "Taiwan",
+                                                                               "Tanzania",
+                                                                               "Thailand",
+                                                                               "Uganda",
+                                                                               "United States",
+                                                                               "Hawaii",
+                                                                               "Vietnam",
+                                                                               "Zambia"),
                                                                 selected = 1),
                                                 ),
                                                 mainPanel(
-                                                    plotOutput("plot_stack"),
+                                                    plotOutput("plot_radar")
                                                 )
                                             ),
                                             
@@ -168,7 +222,7 @@ ui <- fluidPage(
                                                         uiOutput("question_ten")
                                                      )
                                             )
-                                )
+                                
                             )
                    ),
                    tabPanel("Acknowledgements",
@@ -218,17 +272,69 @@ server <- function(input, output, session) {
     })
     
     output$plot_altitude <- renderPlot({
-        altitude_input <- input$radio_altitude
+
+        #########################################################################
+        # Altitude Graphs
+        #########################################################################
+
+        # Set country code
+        country_code <- c("Aroma", "Flavor", "Aftertaste", "Acidity", "Body",
+                          "Balance", "Uniformity", "Clean.Cup", "Sweetness")
+
+        ### Take in user input: use integer input from radio and get string value
+        altitude_input <- country_code[parse_number(input$radio_altitude)]
         
-        #put graph here, Sang
+        ### Filter out outliers, insignificant data points
+        df2 <- filter(all_data, 
+                    all_data$altitude_mean_meters <= 2000,
+                    all_data[altitude_input] > 6)
+
+        ### Refine data to plot 
+        names(df2)[names(df2) == altitude_input] <- "x"
+
+
+        ### Scatterplot
+        ggplot(df2, aes(x=df2$altitude_mean_meters, y=df2$x)) +
+        
+        geom_point(size= 2, color="darkslateblue", alpha=0.8) +
+        geom_smooth(method=lm, color="black") +
+        
+        ggtitle(label = paste("Effect of Altitude on Arabica", altitude_input),
+                subtitle = "Project Coffee") +
+        
+        theme_bw() +
+        
+        xlab("Altitude (meters)") + ylab(paste(altitude_input, "Reviews")) +
+        
+        theme(plot.title = element_text(hjust = 0.5, 
+                                        margin=margin(10,0,5,0), size=18),
+                
+                plot.subtitle = element_text(hjust = 0.5, 
+                                            margin=margin(0,0,15,0)),
+                legend.position = "none",
+                
+                axis.title.x = element_text(family = "sans", 
+                                            size = 11, 
+                                            margin=margin(15,0,0,0)), 
+                
+                axis.title.y = element_text(family = "sans", 
+                                            size = 11, 
+                                            margin=margin(0,15,0,0)))
+    })
+    
+    output$plot_radar <- renderPlot({
+        radar_country <- input$radar_country
+        
+        # print(radar_country)
+         # put radar graph here ByunByun
     })
     
     output$plot_stacked <- renderPlot({
         country_list <- input$select_country
         factor_list <- input$checkbox_stack
         
-        data <- filter(BarAvg,
-                       )
+        # data <- filter(BarAvg,
+        #                )
         # put graph here, Tae  
     })
     
@@ -264,10 +370,10 @@ server <- function(input, output, session) {
                          choices = list("Colombia" = 1, 
                                         "Brazil" = 2, 
                                         "Jamaica" = 3,
-                                        "Ethiopia" = 4), 
+                                        "Ethiopia" = 4)
                          ),   
             textOutput("answer_one"),
-            disabled(actionButton("button_one", "Next Question")),
+            disabled(actionButton("button_one", "Next Question"))
             
         )
     })
@@ -424,7 +530,7 @@ server <- function(input, output, session) {
         div(id = "ten", hidden = TRUE,
             h3("Question 10"),
             p("Lorem ipsum dolor sit amet, consectetur adipiscing elit. "),
-            br(),
+            br()
             #actionButton("button_ten", "Next Question")
         )
     })
