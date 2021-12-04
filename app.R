@@ -1,12 +1,3 @@
-#
-# This is a Shiny web application. You can run the application by clicking
-# the 'Run App' button above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
-
 library(tidyverse)
 library(shiny)
 library(shinythemes)
@@ -91,20 +82,23 @@ ui <- fluidPage(
                                             tabPanel("Altitude Graph", 
                                                      br(),
                                                      sidebarPanel(
-                                                         checkboxGroupInput("checkGroup", 
-                                                                            label = h5("Variables To Show"), 
-                                                                            choices = list("Aroma" = 1, 
-                                                                                           "Flavor" = 2, 
-                                                                                           "Aftertaste" = 3,
-                                                                                           "Sweetness" = 4,
-                                                                                           "Acidity" = 5,
-                                                                                           "Body" = 6,
-                                                                                           "Balance" = 7,
-                                                                                           "Uniformity" = 8),
-                                                                            selected = 1),
+                                                         radioButtons("radio_altitude", label = h3("Review Factors"),
+                                                                      choices = list("Choice 1" = 1, "Choice 2" = 2, "Choice 3" = 3), 
+                                                                      selected = 1),
                                                      ),
-                                                     plotOutput("plot_altitude")),
+                                                     mainPanel(
+                                                         plotOutput("plot_altitude")
+                                                     )
+                                            ),
                                             tabPanel(
+                                                "Stacked Graph",
+                                                br(),
+                                                sidebarPanel(
+                                                    selectInput("select", 
+                                                                label = h5("Country"), 
+                                                                choices = list("Choice 1" = 1, "Choice 2" = 2, "Choice 3" = 3), 
+                                                                selected = 1),
+                                                ),
                                                 plotOutput("plot_stack")
                                             ),
                                             
@@ -167,12 +161,18 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output, session) {
     
+    output$plot_altitude <- renderPlot({
+        altitude_input <- input$radio_altitude
+        
+        #put graph here, Sang
+    })
+    
     # Visualization for Trivia Game
     output$question_home <- renderUI({
         div(id = "this_home",
             h1("Welcome!"),
-            p("Lorem ipsum dolor sit amet, consectetur adipiscing elit. "),
-            br(),
+            p("Test your knowledge of coffee by answering 10 trivia questions!"),
+            #br(),
             actionButton("button_start", "Start")
         )
     })
@@ -188,22 +188,42 @@ server <- function(input, output, session) {
         div(id = "one", hidden = TRUE,
             h3("Question 1"),
             p("Which country produces the most coffee?"),
+            img(src = "coffee_map.jpg",
+                height = "300", 
+                width = "100%"),
+            br(), br(),
             radioButtons("radio_one",
                          label = NULL,
                          inline = TRUE,
+                         selected = character(0),
                          choices = list("Colombia" = 1, 
                                         "Brazil" = 2, 
                                         "Jamaica" = 3,
                                         "Ethiopia" = 4), 
-                         ),
-            br(),    
-            actionButton("button_one", "Next Question")
+                         ),   
+            textOutput("answer_one"),
+            disabled(actionButton("button_one", "Next Question")),
+            
         )
     })
     
     observeEvent(input$button_one, {
         shinyjs::hide(id = "one")
         shinyjs::show(id = "two")
+    })
+    
+    observeEvent(input$radio_one, {
+        shinyjs::enable("button_one")
+        shinyjs::disable("radio_one")
+        output$answer_one <- renderText(
+            if(input$radio_one == 2){
+                "Correct"   
+            }
+            else{
+                "Incorrect"
+            }
+            
+        )
     })
     
     
@@ -333,7 +353,6 @@ server <- function(input, output, session) {
         shinyjs::hide(id = "nine")
         shinyjs::show(id = "ten")
     })
-    
     
     # Question 10
     output$question_ten <- renderUI({
