@@ -37,12 +37,10 @@ plot(hc)
 ```
 ```{r meh}
 
-condition <- rep(c())
-
-      ggplot(coffee_avg,
-           aes(y = Country.KG,
-               x = Total.Cup.Points.Avg.KG,
-               position = "fill")) +
-      geom_col()
+ggplot(coffee_avg,
+       aes(x = Country.KG,
+           y = Total.Cup.Points.Avg.KG)
+       ) +
+  geom_col()
 
 ```

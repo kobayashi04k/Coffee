@@ -4,6 +4,7 @@ library(shinythemes)
 library(shinyjs)
 library(leaflet)
 
+# read csv files
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
@@ -67,9 +68,59 @@ ui <- fluidPage(
                                             tabPanel("Map", 
                                                      br(),
                                                      sidebarPanel(
-                                                         radioButtons("radio_map", label = h3("Review Factors"),
-                                                                      choices = list("Choice 1" = 1, "Choice 2" = 2, "Choice 3" = 3), 
-                                                                      selected = 1),
+                                                         selectizeInput("country_select",
+                                                                        label = h5("Country"),
+                                                                        choices = list("Brazil (BR)", 
+                                                                                       "Burundi (BI)", 
+                                                                                       "China (CN)",
+                                                                                       "Colombia (CO)",
+                                                                                       "Costa Rica (CR)",
+                                                                                       "Cote d'Ivoire (CI)",
+                                                                                       "Edcuador (EC)",
+                                                                                       "El Salvador (SV)",
+                                                                                       "Ethiopia (ET)",
+                                                                                       "Guatemala (GT)",
+                                                                                       "Haiti (HT)",
+                                                                                       "Honduras (HN)",
+                                                                                       "India (IN)",
+                                                                                       "Indonesia (ID)",
+                                                                                       "Japan (JP)",
+                                                                                       "Kenya (KE)",
+                                                                                       "Laos(LA)",
+                                                                                       "Malawi (MW)",
+                                                                                       "Mauritius (MU)",
+                                                                                       "Mexico (MX)",
+                                                                                       "Myanmar (MM)",
+                                                                                       "Nicaragua (NI)",
+                                                                                       "Panama (PA)",
+                                                                                       "Papua New Guinea (PG)",
+                                                                                       "Peru (PE)",
+                                                                                       "Philippines (PH)",
+                                                                                       "Puerto Rico (PR)",
+                                                                                       "Rwanda (RW)",
+                                                                                       "Taiwan (TW)",
+                                                                                       "Tanzania (TZ)",
+                                                                                       "Thailand (TH)",
+                                                                                       "Uganda (UG)",
+                                                                                       "United States (US)",
+                                                                                       "Hawaii (US)",
+                                                                                       "Vietnam (VN)",
+                                                                                       "Zambia (ZM)"),
+                                                                        multiple = TRUE,
+                                                                        options = list(plugins=list('remove_button'))),
+                                                     checkboxGroupInput("checkbox_stack", 
+                                                                        label = h5("Variables To Show"), 
+                                                                        choices = list("Aroma" = 1,
+                                                                                       "Flavor" = 2,
+                                                                                       "Aftertaste" = 3,
+                                                                                       "Acidity" = 4,
+                                                                                       "Body" = 5,
+                                                                                       "Balance" = 6,
+                                                                                       "Uniformity" = 7,
+                                                                                       "Cleaness" = 8,
+                                                                                       "Sweetness" = 9,
+                                                                                       "Cup Points" = 10),
+                                                                        selected = 1)
                                                      ),
                                                      mainPanel(
                                                          plotOutput("plot_map")
@@ -95,7 +146,9 @@ ui <- fluidPage(
                                                                 choices = list("Choice 1" = 1, "Choice 2" = 2, "Choice 3" = 3), 
                                                                 selected = 1),
                                                 ),
-                                                plotOutput("plot_stack")
+                                                mainPanel(
+                                                    plotOutput("plot_stack"),
+                                                )
                                             ),
                                             
                                             tabPanel("Coffee Trivia",
@@ -168,6 +221,15 @@ server <- function(input, output, session) {
         altitude_input <- input$radio_altitude
         
         #put graph here, Sang
+    })
+    
+    output$plot_stacked <- renderPlot({
+        country_list <- input$select_country
+        factor_list <- input$checkbox_stack
+        
+        data <- filter(BarAvg,
+                       )
+        # put graph here, Tae  
     })
     
     # Visualization for Trivia Game
