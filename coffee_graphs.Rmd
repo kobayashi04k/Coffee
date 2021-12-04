@@ -39,7 +39,9 @@ plot(hc)
 
 ggplot(coffee_avg,
        aes(x = Country.KG,
-           y = Total.Cup.Points.Avg.KG)
+           y = Clean.Cup.Avg.KG + 
+               Sweetness.Avg.KG,
+           fill = Country.KG) 
        ) +
   geom_col()
 
