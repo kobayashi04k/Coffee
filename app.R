@@ -2,6 +2,7 @@ library(tidyverse)
 library(shiny)
 library(shinythemes)
 library(shinyjs)
+library(leaflet)
 
 
 # Define UI for application that draws a histogram
@@ -66,19 +67,14 @@ ui <- fluidPage(
                                             tabPanel("Map", 
                                                      br(),
                                                      sidebarPanel(
-                                                         checkboxGroupInput("checkGroup", 
-                                                                            label = h5("Variables To Show"), 
-                                                                            choices = list("Aroma" = 1, 
-                                                                                           "Flavor" = 2, 
-                                                                                           "Aftertaste" = 3,
-                                                                                           "Sweetness" = 4,
-                                                                                           "Acidity" = 5,
-                                                                                           "Body" = 6,
-                                                                                           "Balance" = 7,
-                                                                                           "Uniformity" = 8),
-                                                                            selected = 1),
+                                                         radioButtons("radio_map", label = h3("Review Factors"),
+                                                                      choices = list("Choice 1" = 1, "Choice 2" = 2, "Choice 3" = 3), 
+                                                                      selected = 1),
                                                      ),
-                                                     plotOutput("plot_map")),
+                                                     mainPanel(
+                                                         plotOutput("plot_map")
+                                                     )
+                                            ),
                                             tabPanel("Altitude Graph", 
                                                      br(),
                                                      sidebarPanel(
@@ -160,6 +156,13 @@ ui <- fluidPage(
 
 # Define server logic required to draw a histogram
 server <- function(input, output, session) {
+    
+    output$plot_map <- renderLeaflet({
+        
+        map_input <- input$radio_map
+        
+        #put graph here, Amber
+    })
     
     output$plot_altitude <- renderPlot({
         altitude_input <- input$radio_altitude
