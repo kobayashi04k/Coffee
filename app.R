@@ -3,6 +3,7 @@ library(shiny)
 library(shinythemes)
 library(shinyjs)
 library(leaflet)
+library(fmsb)
 
 
 ### Read in the dataset
@@ -162,22 +163,22 @@ ui <- fluidPage(
                                                 sidebarPanel(
                                                     selectInput("radar_country", 
                                                                 label = h3("Select Country"), 
-                                                                choices = list("Brazil ",
-                                                                               "Burundi ",
-                                                                               "China ",
-                                                                               "Colombia ",
-                                                                               "Costa Rica ",
-                                                                               "Cote d'Ivoire ",
-                                                                               "Edcuador ",
-                                                                               "El Salvador ",
-                                                                               "Ethiopia ",
-                                                                               "Guatemala ",
-                                                                               "Haiti ",
-                                                                               "Honduras ",
-                                                                               "India ",
-                                                                               "Indonesia ",
-                                                                               "Japan ",
-                                                                               "Kenya ",
+                                                                choices = list("Brazil",
+                                                                               "Burundi",
+                                                                               "China",
+                                                                               "Colombia",
+                                                                               "Costa Rica",
+                                                                               "Cote d'Ivoire",
+                                                                               "Edcuador",
+                                                                               "El Salvador",
+                                                                               "Ethiopia",
+                                                                               "Guatemala",
+                                                                               "Haiti",
+                                                                               "Honduras",
+                                                                               "India",
+                                                                               "Indonesia",
+                                                                               "Japan",
+                                                                               "Kenya",
                                                                                "Laos",
                                                                                "Malawi",
                                                                                "Mauritius",
@@ -323,10 +324,47 @@ server <- function(input, output, session) {
     })
     
     output$plot_radar <- renderPlot({
-        radar_country <- input$radar_country
         
-        # print(radar_country)
-         # put radar graph here ByunByun
+        #########################################################################
+        # Radar Charts
+        #########################################################################
+
+        radar_country <- input$radar_country
+
+        ### Attain mean values for each variable for every country
+        df_mean <- aggregate(all_data[21:29], 
+                            list(all_data$Country.of.Origin), 
+                            FUN=mean)
+
+        ### Take in user input: country of interest (string value)
+        cntry_oi <- radar_country
+
+        ### Select and filter the data for the cntry_oi
+        cnt_mean <- filter(df_mean, df_mean$Group.1 == cntry_oi) %>%
+        select(-Group.1)
+
+        ### Prepare df
+        cnt_mean <- rbind(rep(10,10) , rep(6,10) , cnt_mean)
+
+        ### Radar Chart
+        radarchart(cnt_mean, axistype=1,
+                
+                #custom polygon
+                pcol=rgb(0.25,0.1,0.1,0.8), 
+                pfcol=rgb(0.3,0.1,0.1,0.5) , 
+                plwd=3 , 
+                
+                #custom the grid
+                cglcol="grey", 
+                cglty=1, 
+                axislabcol="grey", 
+                caxislabels=seq(6,10,1), 
+                cglwd=0.8,
+                
+                #custom labels
+                vlcex=0.6 ,
+                cex.main = 1.5,
+                title=cntry_oi)
     })
     
     output$plot_stacked <- renderPlot({
