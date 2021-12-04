@@ -3,7 +3,7 @@ library(shiny)
 library(shinythemes)
 library(shinyjs)
 library(leaflet)
-library(fmsb)
+library("fmsb")
 
 
 ### Read in the dataset
@@ -79,7 +79,7 @@ ui <- fluidPage(
                                                                                        "Colombia (CO)",
                                                                                        "Costa Rica (CR)",
                                                                                        "Cote d'Ivoire (CI)",
-                                                                                       "Edcuador (EC)",
+                                                                                       "Ecuador (EC)",
                                                                                        "El Salvador (SV)",
                                                                                        "Ethiopia (ET)",
                                                                                        "Guatemala (GT)",
@@ -132,7 +132,7 @@ ui <- fluidPage(
                                             tabPanel("Altitude Graph", 
                                                      br(),
                                                      sidebarPanel(
-                                                         radioButtons("radio_altitude", label = h3("Review Factors"),
+                                                         radioButtons("radio_altitude", label = h5("Review Factors"),
                                                                       choices = list("Aroma" = 1, "Flavor" = 2, "Aftertaste" = 3,
                                                                                      "Acidity" = 4, "Body" = 5, "Balance" = 6,
                                                                                      "Uniformity" = 7, "Clean Cup" = 8, "Sweetness" = 9), 
@@ -162,14 +162,14 @@ ui <- fluidPage(
                                                 br(),
                                                 sidebarPanel(
                                                     selectInput("radar_country", 
-                                                                label = h3("Select Country"), 
+                                                                label = h5("Select Country"), 
                                                                 choices = list("Brazil",
                                                                                "Burundi",
                                                                                "China",
                                                                                "Colombia",
                                                                                "Costa Rica",
                                                                                "Cote d'Ivoire",
-                                                                               "Edcuador",
+                                                                               "Ecuador",
                                                                                "El Salvador",
                                                                                "Ethiopia",
                                                                                "Guatemala",
@@ -202,7 +202,8 @@ ui <- fluidPage(
                                                                 selected = 1),
                                                 ),
                                                 mainPanel(
-                                                    plotOutput("plot_radar")
+                                                    plotOutput("plot_radar",
+                                                               height = "600px")
                                                 )
                                             ),
                                             

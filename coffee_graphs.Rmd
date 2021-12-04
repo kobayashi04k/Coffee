@@ -15,6 +15,8 @@ coffee_reviews <- read_csv("data/cleaned_coffee.csv")
 
 coffee_avg <- read_csv("data/coffee_avg.csv")
 
+all_data <- read_csv("data/arabica_data_cleaned.csv")
+
 ```
 
 
@@ -39,7 +41,9 @@ plot(hc)
 
 ggplot(coffee_avg,
        aes(x = Country.KG,
-           y = Total.Cup.Points.Avg.KG)
+           y = Clean.Cup.Avg.KG + 
+               Sweetness.Avg.KG,
+           fill = Country.KG) 
        ) +
   geom_col()
 
