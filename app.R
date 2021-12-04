@@ -3,8 +3,7 @@ library(shiny)
 library(shinythemes)
 library(shinyjs)
 library(leaflet)
-library("fmsb")
-
+library(fmsb)
 
 ### Read in the dataset
 all_data <- read_csv("data/arabica_data_cleaned.csv")
@@ -36,7 +35,34 @@ ui <- fluidPage(
                    tabPanel("Design Process",
                             column(1),
                             column(10,
-                                   h3("Our Design Process"),
+                                   fluidRow(
+                                       h4("Process Map"),
+                                       img(src = "placeholder.png",
+                                           height = "100%", 
+                                           width = "100%"),
+                                       p("Place text here")
+                                   ),
+                                   fluidRow(
+                                       h4("Journey Map"),
+                                       img(src = "placeholder.png",
+                                           height = "100%", 
+                                           width = "100%"),
+                                       p("Place text here")
+                                   ),
+                                   fluidRow(
+                                       h4("Wireframe"),
+                                       img(src = "placeholder.png",
+                                           height = "100%", 
+                                           width = "100%"),
+                                       p("Place text here")
+                                   ),
+                                   fluidRow(
+                                       h4("Screen Mockup"),
+                                       img(src = "placeholder.png",
+                                           height = "100%", 
+                                           width = "100%"),
+                                       p("Place text here")
+                                   ),
                                    column(5,
                                           br(),
                                           img(src = "placeholder.png",
@@ -65,65 +91,16 @@ ui <- fluidPage(
                             
                             ),
                    tabPanel("Visualizations",
-                            
-                            
                                 tabsetPanel(type = "tabs",
                                             tabPanel("Map", 
                                                      br(),
                                                      sidebarPanel(
-                                                         selectizeInput("select_country",
-                                                                        label = h5("Country"),
-                                                                        choices = list("Brazil (BR)", 
-                                                                                       "Burundi (BI)", 
-                                                                                       "China (CN)",
-                                                                                       "Colombia (CO)",
-                                                                                       "Costa Rica (CR)",
-                                                                                       "Cote d'Ivoire (CI)",
-                                                                                       "Ecuador (EC)",
-                                                                                       "El Salvador (SV)",
-                                                                                       "Ethiopia (ET)",
-                                                                                       "Guatemala (GT)",
-                                                                                       "Haiti (HT)",
-                                                                                       "Honduras (HN)",
-                                                                                       "India (IN)",
-                                                                                       "Indonesia (ID)",
-                                                                                       "Japan (JP)",
-                                                                                       "Kenya (KE)",
-                                                                                       "Laos(LA)",
-                                                                                       "Malawi (MW)",
-                                                                                       "Mauritius (MU)",
-                                                                                       "Mexico (MX)",
-                                                                                       "Myanmar (MM)",
-                                                                                       "Nicaragua (NI)",
-                                                                                       "Panama (PA)",
-                                                                                       "Papua New Guinea (PG)",
-                                                                                       "Peru (PE)",
-                                                                                       "Philippines (PH)",
-                                                                                       "Puerto Rico (PR)",
-                                                                                       "Rwanda (RW)",
-                                                                                       "Taiwan (TW)",
-                                                                                       "Tanzania (TZ)",
-                                                                                       "Thailand (TH)",
-                                                                                       "Uganda (UG)",
-                                                                                       "United States (US)",
-                                                                                       "Hawaii (US)",
-                                                                                       "Vietnam (VN)",
-                                                                                       "Zambia (ZM)"),
-                                                                        multiple = TRUE,
-                                                                        options = list(plugins=list('remove_button'))),
-                                                     checkboxGroupInput("checkbox_stack", 
-                                                                        label = h5("Variables To Show"), 
-                                                                        choices = list("Aroma" = 1,
-                                                                                       "Flavor" = 2,
-                                                                                       "Aftertaste" = 3,
-                                                                                       "Acidity" = 4,
-                                                                                       "Body" = 5,
-                                                                                       "Balance" = 6,
-                                                                                       "Uniformity" = 7,
-                                                                                       "Cleaness" = 8,
-                                                                                       "Sweetness" = 9,
-                                                                                       "Cup Points" = 10),
-                                                                        selected = 1)
+                                                         radioButtons("radio_map", 
+                                                                      label = h5("Variable to show"),
+                                                                      choices = list("Aroma" = 1, "Flavor" = 2, "Aftertaste" = 3,
+                                                                                     "Acidity" = 4
+                                                                                     ), 
+                                                                      selected = 1)
                                                      ),
                                                      mainPanel(
                                                          plotOutput("plot_map")
@@ -224,7 +201,6 @@ ui <- fluidPage(
                                                         uiOutput("question_ten")
                                                      )
                                             )
-                                
                             )
                    ),
                    tabPanel("Acknowledgements",
@@ -268,7 +244,7 @@ server <- function(input, output, session) {
     
     output$plot_map <- renderLeaflet({
         
-        map_input <- input$radio_map
+        print(input$radio_map)
         
         #put graph here, Amber
     })
@@ -369,8 +345,8 @@ server <- function(input, output, session) {
     })
     
     output$plot_stacked <- renderPlot({
-        country_list <- input$select_country
-        factor_list <- input$checkbox_stack
+        country_list <- input$stack_country
+        factor_list <- input$stack_checkbox
         
         # data <- filter(BarAvg,
         #                )
