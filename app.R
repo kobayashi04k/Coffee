@@ -274,7 +274,7 @@ server <- function(input, output, session) {
             lapply(htmltools::HTML)
         
         # Initialize the leaflet map
-        library(leaflet)
+        #library(leaflet)
         leaflet(world2) %>% 
             # Then we Add default OpenStreetMap map tiles
             addTiles() %>%
