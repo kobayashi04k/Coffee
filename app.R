@@ -3,6 +3,8 @@ library(shiny)
 library(shinythemes)
 library(shinyjs)
 
+### Read in the dataset
+all_data <- read_csv("./data/arabica_data_cleaned.csv")
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
@@ -83,7 +85,9 @@ ui <- fluidPage(
                                                      br(),
                                                      sidebarPanel(
                                                          radioButtons("radio_altitude", label = h3("Review Factors"),
-                                                                      choices = list("Choice 1" = 1, "Choice 2" = 2, "Choice 3" = 3), 
+                                                                      choices = list("Aroma" = 1, "Flavor" = 2, "Aftertaste" = 3,
+                                                                                     "Acidity" = 4, "Body" = 5, "Balance" = 6,
+                                                                                     "Uniformity" = 7, "Clean.Cup" = 8, "Sweetness" = 9), 
                                                                       selected = 1),
                                                      ),
                                                      mainPanel(
@@ -162,11 +166,57 @@ ui <- fluidPage(
 server <- function(input, output, session) {
     
     output$plot_altitude <- renderPlot({
-        altitude_input <- input$radio_altitude
+
+        #########################################################################
+        # Altitude Graphs
+        #########################################################################
+
+        # Set country code
+        country_code <- c("Aroma", "Flavor", "Aftertaste", "Acidity", "Body",
+                          "Balance", "Uniformity", "Clean Cup", "Sweetness")
+
+        ### Take in user input: use integer input from radio and get string value
+        altitude_input <- country_code[input$radio_altitude]
+
+        ### Filter out outliers, insignificant data points
+        df2 <- filter(all_data, 
+                    all_data$altitude_mean_meters <= 2000,
+                    all_data[altitude_input] > 6)
+
+        ### Refine data to plot 
+        names(df2)[names(df2) == altitude_input] <- "x"
+
+
+        ### Scatterplot
+        ggplot(df2, aes(x=df2$altitude_mean_meters, y=df2$x)) +
         
-        #put graph here, Sang
+        geom_point(size= 2, color="darkslateblue", alpha=0.8) +
+        geom_smooth(method=lm, color="black") +
+        
+        ggtitle(label = paste("Effect of Altitude on Arabica", altitude_input),
+                subtitle = "Project Coffee") +
+        
+        theme_bw() +
+        
+        xlab("Altitude (meters)") + ylab(paste(altitude_input, "Reviews")) +
+        
+        theme(plot.title = element_text(hjust = 0.5, 
+                                        margin=margin(10,0,5,0), size=18),
+                
+                plot.subtitle = element_text(hjust = 0.5, 
+                                            margin=margin(0,0,15,0)),
+                legend.position = "none",
+                
+                axis.title.x = element_text(family = "sans", 
+                                            size = 11, 
+                                            margin=margin(15,0,0,0)), 
+                
+                axis.title.y = element_text(family = "sans", 
+                                            size = 11, 
+                                            margin=margin(0,15,0,0)), )
     })
-    
+    #########################################################################
+
     # Visualization for Trivia Game
     output$question_home <- renderUI({
         div(id = "this_home",
