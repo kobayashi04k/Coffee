@@ -9,6 +9,27 @@ library("fmsb")
 ### Read in the dataset
 all_data <- read_csv("data/arabica_data_cleaned.csv")
 
+# MAP SETUP
+coffee_avgs2 <- read_csv("data/coffee_avgs2.csv")
+
+# Read world shape file with the rgdal library
+library(rgdal)
+world2 <- readOGR( 
+    dsn= paste0(getwd(),"/data/world_shape_file") , 
+    layer="TM_WORLD_BORDERS_SIMPL-0.3",
+    verbose=FALSE
+)
+
+# Add country average data to world2
+library(tigris)
+world2 = geo_join(world2,
+                  coffee_avgs2,
+                  # "FIPS",
+                  # "FIPS",
+                  by = "FIPS",
+                  how = "left")
+
+
 # Define UI for application that draws a histogram
 ui <- fluidPage(
     #shinythemes::themeSelector(),
@@ -71,59 +92,10 @@ ui <- fluidPage(
                                             tabPanel("Map", 
                                                      br(),
                                                      sidebarPanel(
-                                                         selectizeInput("select_country",
-                                                                        label = h5("Country"),
-                                                                        choices = list("Brazil (BR)", 
-                                                                                       "Burundi (BI)", 
-                                                                                       "China (CN)",
-                                                                                       "Colombia (CO)",
-                                                                                       "Costa Rica (CR)",
-                                                                                       "Cote d'Ivoire (CI)",
-                                                                                       "Ecuador (EC)",
-                                                                                       "El Salvador (SV)",
-                                                                                       "Ethiopia (ET)",
-                                                                                       "Guatemala (GT)",
-                                                                                       "Haiti (HT)",
-                                                                                       "Honduras (HN)",
-                                                                                       "India (IN)",
-                                                                                       "Indonesia (ID)",
-                                                                                       "Japan (JP)",
-                                                                                       "Kenya (KE)",
-                                                                                       "Laos(LA)",
-                                                                                       "Malawi (MW)",
-                                                                                       "Mauritius (MU)",
-                                                                                       "Mexico (MX)",
-                                                                                       "Myanmar (MM)",
-                                                                                       "Nicaragua (NI)",
-                                                                                       "Panama (PA)",
-                                                                                       "Papua New Guinea (PG)",
-                                                                                       "Peru (PE)",
-                                                                                       "Philippines (PH)",
-                                                                                       "Puerto Rico (PR)",
-                                                                                       "Rwanda (RW)",
-                                                                                       "Taiwan (TW)",
-                                                                                       "Tanzania (TZ)",
-                                                                                       "Thailand (TH)",
-                                                                                       "Uganda (UG)",
-                                                                                       "United States (US)",
-                                                                                       "Hawaii (US)",
-                                                                                       "Vietnam (VN)",
-                                                                                       "Zambia (ZM)"),
-                                                                        multiple = TRUE,
-                                                                        options = list(plugins=list('remove_button'))),
-                                                     checkboxGroupInput("checkbox_stack", 
-                                                                        label = h5("Variables To Show"), 
-                                                                        choices = list("Aroma" = 1,
-                                                                                       "Flavor" = 2,
-                                                                                       "Aftertaste" = 3,
-                                                                                       "Acidity" = 4,
-                                                                                       "Body" = 5,
-                                                                                       "Balance" = 6,
-                                                                                       "Uniformity" = 7,
-                                                                                       "Cleaness" = 8,
-                                                                                       "Sweetness" = 9,
-                                                                                       "Cup Points" = 10),
-                                                                        selected = 1)
+                                                         radioButtons("radio_map",
+                                                                      label = h5("Variable to show"),
+                                                                      choices = list("Aroma" = 1, "Flavor" = 2 #ADD REST)
+                                                         )
                                                      ),
                                                      mainPanel(
                                                          plotOutput("plot_map")
@@ -199,7 +171,7 @@ ui <- fluidPage(
                                                                                "Hawaii",
                                                                                "Vietnam",
                                                                                "Zambia"),
-                                                                selected = 1),
+                                                                selected = 1)
                                                 ),
                                                 mainPanel(
                                                     plotOutput("plot_radar",
@@ -261,16 +233,62 @@ ui <- fluidPage(
                             )
                    )
         )
-    )
+    ),
 
 # Define server logic required to draw a histogram
 server <- function(input, output, session) {
     
     output$plot_map <- renderLeaflet({
         
-        map_input <- input$radio_map
+        # input = string of number of choice. ex. "1" for aroma, "2" for flavor
+        # now it is that number. ex. 1 for aroma
+        ### Take in user input: use integer input from radio selection
+        map_input <- parse_number(input$radio_map)
+        
+        # variable name
+        var_name <- c("Aroma", "Flavor", "Aftertaste", "Acidity", "Body",
+                          "Balance", "Uniformity", "Clean.Cup", "Sweetness")
+        #FIX TO RIGHT LIST
+        
+        ### Take in user input: use integer input from radio and get string value
+        # altitude_input <- country_code[parse_number(input$radio_altitude)]
         
         #put graph here, Amber
+        
+        # variable
+        # aroma, flavor, aftertaste, acidity, sweetness, total_cup_points, kg
+        v <- world2@data$flavor
+        
+        # Create a color palette with handmade bins
+        mypalette <- colorBin( palette="YlGn",
+                               domain=v,
+                               na.color="transparent",
+                               bins=6)
+        
+        # Prepare the text for tooltips:
+        mytext <- paste(
+            world2@data$NAME,"<br/>", 
+            round(v, 2),
+            # "Rating: ", round(v, 2), 
+            sep="") %>%
+            lapply(htmltools::HTML)
+        
+        # Initialize the leaflet map
+        library(leaflet)
+        leaflet(world2) %>% 
+            # Then we Add default OpenStreetMap map tiles
+            addTiles() %>%
+            setView( lat=10, lng=0 , zoom=1) %>%
+            addPolygons( stroke = FALSE,
+                         fillOpacity = 0.5,
+                         smoothFactor = 0.5,
+                         fillColor = ~mypalette(v),
+                         label = mytext ) %>%
+            addLegend( pal=mypalette,
+                       values=~v,
+                       opacity=0.9,
+                       title = "Rating",
+                       position = "bottomleft" )
     })
     
     output$plot_altitude <- renderPlot({
