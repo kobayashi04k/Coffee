@@ -5,6 +5,7 @@ library(shinyjs)
 library(leaflet)
 library(fmsb)
 library(rgdal)
+library(tigris)
 
 ### Read in the dataset
 all_data <- read_csv("data/arabica_data_cleaned.csv")
@@ -21,13 +22,12 @@ world2 <- readOGR(
 )
 
 # Add country average data to world2
-library(tigris)
-world2 = geo_join(world2,
-                  coffee_avgs2,
-                  # "FIPS",
-                  # "FIPS",
-                  by = "FIPS",
-                  how = "left")
+world2 <- geo_join(world2,
+                   coffee_avgs2,
+                   # "FIPS",
+                   # "FIPS",
+                   by = "FIPS",
+                   how = "left")
 
 
 # Define UI for application that draws a histogram
@@ -57,59 +57,114 @@ ui <- fluidPage(
                    tabPanel("Design Process",
                             column(1),
                             column(10,
+                                   h3("Design Process"),
+                                   br(),
                                    fluidRow(
-                                       h4("Process Map"),
-                                       img(src = "placeholder.png",
-                                           height = "100%", 
-                                           width = "100%"),
-                                       p("Place text here")
+                                       HTML('<center><h4>Process Map</h4></center>'),
+                                       br(),
+                                       HTML('<center><img src="placeholder.png" width="400"></center>'),
+                                       br(),
+                                       HTML('<center>
+                                                <p>
+                                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Orci varius 
+                                                 natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
+                                                 Morbi eget felis vel ex laoreet lacinia in at odio. Maecenas imperdiet, 
+                                                 lorem non venenatis elementum, ligula turpis pretium velit, vel facilisis 
+                                                 nibh risus id elit. Suspendisse ac lorem eu lacus mollis fringilla quis non 
+                                                 urna. Vivamus condimentum ante mi, vel congue est aliquam vitae. Suspendisse 
+                                                 tempor molestie volutpat. Suspendisse eu leo et leo sodales ullamcorper ut 
+                                                 aliquet felis. Pellentesque pretium aliquam tortor at tempus. Mauris nunc felis, 
+                                                 placerat vitae lorem a, interdum interdum augue. Sed felis dui, posuere ac nisi 
+                                                 vel, porta tincidunt metus.
+                                                </p>
+                                            </center>')
                                    ),
+                                   br(),br(),
                                    fluidRow(
-                                       h4("Journey Map"),
-                                       img(src = "placeholder.png",
-                                           height = "100%", 
-                                           width = "100%"),
-                                       p("Place text here")
+                                       HTML('<center><h4>Journey Map</h4></center>'),
+                                       br(),
+                                       HTML('<center><img src="placeholder.png" width="400"></center>'),
+                                       br(),
+                                       HTML('<center>
+                                                <p>
+                                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Orci varius 
+                                                 natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
+                                                 Morbi eget felis vel ex laoreet lacinia in at odio. Maecenas imperdiet, 
+                                                 lorem non venenatis elementum, ligula turpis pretium velit, vel facilisis 
+                                                 nibh risus id elit. Suspendisse ac lorem eu lacus mollis fringilla quis non 
+                                                 urna. Vivamus condimentum ante mi, vel congue est aliquam vitae. Suspendisse 
+                                                 tempor molestie volutpat. Suspendisse eu leo et leo sodales ullamcorper ut 
+                                                 aliquet felis. Pellentesque pretium aliquam tortor at tempus. Mauris nunc felis, 
+                                                 placerat vitae lorem a, interdum interdum augue. Sed felis dui, posuere ac nisi 
+                                                 vel, porta tincidunt metus.
+                                                </p>
+                                            </center>')
                                    ),
+                                   br(),br(),
                                    fluidRow(
-                                       h4("Wireframe"),
-                                       img(src = "placeholder.png",
-                                           height = "100%", 
-                                           width = "100%"),
-                                       p("Place text here")
+                                       HTML('<center><h4>Wireframe</h4></center>'),
+                                       br(),
+                                       HTML('<center><img src="placeholder.png" width="400"></center>'),
+                                       br(),
+                                       HTML('<center>
+                                                <p>
+                                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Orci varius 
+                                                 natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
+                                                 Morbi eget felis vel ex laoreet lacinia in at odio. Maecenas imperdiet, 
+                                                 lorem non venenatis elementum, ligula turpis pretium velit, vel facilisis 
+                                                 nibh risus id elit. Suspendisse ac lorem eu lacus mollis fringilla quis non 
+                                                 urna. Vivamus condimentum ante mi, vel congue est aliquam vitae. Suspendisse 
+                                                 tempor molestie volutpat. Suspendisse eu leo et leo sodales ullamcorper ut 
+                                                 aliquet felis. Pellentesque pretium aliquam tortor at tempus. Mauris nunc felis, 
+                                                 placerat vitae lorem a, interdum interdum augue. Sed felis dui, posuere ac nisi 
+                                                 vel, porta tincidunt metus.
+                                                </p>
+                                            </center>')
                                    ),
+                                   br(),br(),
                                    fluidRow(
-                                       h4("Screen Mockup"),
-                                       img(src = "placeholder.png",
-                                           height = "100%", 
-                                           width = "100%"),
-                                       p("Place text here")
+                                       HTML('<center><h4>Screen Mockup</h4></center>'),
+                                       br(),
+                                       HTML('<center><img src="placeholder.png" width="400"></center>'),
+                                       br(),
+                                       HTML('<center>
+                                                <p>
+                                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Orci varius 
+                                                 natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
+                                                 Morbi eget felis vel ex laoreet lacinia in at odio. Maecenas imperdiet, 
+                                                 lorem non venenatis elementum, ligula turpis pretium velit, vel facilisis 
+                                                 nibh risus id elit. Suspendisse ac lorem eu lacus mollis fringilla quis non 
+                                                 urna. Vivamus condimentum ante mi, vel congue est aliquam vitae. Suspendisse 
+                                                 tempor molestie volutpat. Suspendisse eu leo et leo sodales ullamcorper ut 
+                                                 aliquet felis. Pellentesque pretium aliquam tortor at tempus. Mauris nunc felis, 
+                                                 placerat vitae lorem a, interdum interdum augue. Sed felis dui, posuere ac nisi 
+                                                 vel, porta tincidunt metus.
+                                                </p>
+                                            </center>')
                                    ),
-                                   column(5,
-                                          br(),
-                                          img(src = "placeholder.png",
-                                              height = "100%", 
-                                              width = "100%"),
-                                          h4("Process Map"),
-                                          br(),
-                                          img(src = "placeholder.png",
-                                              height = "100%", 
-                                              width = "100%"),
-                                          h4("Journey Map")
-                                   ),
-                                   column(1),
-                                   column(5,
-                                          br(),
-                                          img(src = "placeholder.png",
-                                              height = "100%", 
-                                              width = "100%"),
-                                          h4("Wireframe"),
-                                          br(),
-                                          img(src = "placeholder.png",
-                                              height = "100%", 
-                                              width = "100%"),
-                                          h4("Screen Mockup")
-                                   ))
+                                   br(),br(),
+                                   fluidRow(
+                                       HTML('<center><h4>Accessibility Audit</h4></center>'),
+                                       br(),
+                                       HTML('<center><img src="placeholder.png" width="400"></center>'),
+                                       br(),
+                                       HTML('<center>
+                                                <p>
+                                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Orci varius 
+                                                 natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
+                                                 Morbi eget felis vel ex laoreet lacinia in at odio. Maecenas imperdiet, 
+                                                 lorem non venenatis elementum, ligula turpis pretium velit, vel facilisis 
+                                                 nibh risus id elit. Suspendisse ac lorem eu lacus mollis fringilla quis non 
+                                                 urna. Vivamus condimentum ante mi, vel congue est aliquam vitae. Suspendisse 
+                                                 tempor molestie volutpat. Suspendisse eu leo et leo sodales ullamcorper ut 
+                                                 aliquet felis. Pellentesque pretium aliquam tortor at tempus. Mauris nunc felis, 
+                                                 placerat vitae lorem a, interdum interdum augue. Sed felis dui, posuere ac nisi 
+                                                 vel, porta tincidunt metus.
+                                                </p>
+                                            </center>'),
+                                       br()
+                                   )
+                                )
                             
                             ),
                    tabPanel("Visualizations",
@@ -124,17 +179,24 @@ ui <- fluidPage(
                                                          )
                                                      ),
                                                      mainPanel(
-                                                         plotOutput("plot_map")
+                                                         leafletOutput("plot_map")
                                                      )
                                             ),
                                             tabPanel("Altitude Graph", 
                                                      br(),
                                                      sidebarPanel(
                                                          width = 2,
-                                                         radioButtons("radio_altitude", label = h5("Review Factors"),
-                                                                      choices = list("Aroma" = 1, "Flavor" = 2, "Aftertaste" = 3,
-                                                                                     "Acidity" = 4, "Body" = 5, "Balance" = 6,
-                                                                                     "Uniformity" = 7, "Clean Cup" = 8, "Sweetness" = 9), 
+                                                         radioButtons("radio_altitude", 
+                                                                      label = h5("Review Factors"),
+                                                                      choices = list("Aroma" = 1, 
+                                                                                     "Flavor" = 2, 
+                                                                                     "Aftertaste" = 3,
+                                                                                     "Acidity" = 4, 
+                                                                                     "Body" = 5, 
+                                                                                     "Balance" = 6,
+                                                                                     "Uniformity" = 7, 
+                                                                                     "Clean Cup" = 8, 
+                                                                                     "Sweetness" = 9), 
                                                                       selected = 1)
                                                      ),
                                                      mainPanel(
@@ -329,10 +391,10 @@ server <- function(input, output, session) {
         v <- world2@data$flavor
         
         # Create a color palette with handmade bins
-        mypalette <- colorBin( palette="YlGn",
-                               domain=v,
-                               na.color="transparent",
-                               bins=6)
+        mypalette <- colorBin(palette="YlGn",
+                              domain=v,
+                              na.color="transparent",
+                              bins=6)
         
         # Prepare the text for tooltips:
         mytext <- paste(
@@ -343,20 +405,20 @@ server <- function(input, output, session) {
             lapply(htmltools::HTML)
         
         # Initialize the leaflet map
-        leaflet(world2) %>% 
+        world_map <- leaflet(world2) %>% 
             # Then we Add default OpenStreetMap map tiles
-            addTiles() %>%
-            setView( lat=10, lng=0 , zoom=1) %>%
-            addPolygons( stroke = FALSE,
-                         fillOpacity = 0.5,
-                         smoothFactor = 0.5,
-                         fillColor = ~mypalette(v),
-                         label = mytext ) %>%
-            addLegend( pal=mypalette,
-                       values=~v,
-                       opacity=0.9,
-                       title = "Rating",
-                       position = "bottomleft" )
+                     addTiles() %>%
+                     setView(lat=10, lng=0 , zoom=1) %>%
+                     addPolygons(stroke = FALSE,
+                                 fillOpacity = 0.5,
+                                 smoothFactor = 0.5,
+                                 fillColor = ~mypalette(v),
+                                 label = mytext ) %>%
+                     addLegend(pal = mypalette,
+                               values = ~v,
+                               opacity = 0.9,
+                               title = "Rating",
+                               position = "bottomleft" )
     })
     
     output$plot_altitude <- renderPlot({
