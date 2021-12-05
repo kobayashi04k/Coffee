@@ -4,9 +4,31 @@ library(shinythemes)
 library(shinyjs)
 library(leaflet)
 library(fmsb)
+library(rgdal)
 
 ### Read in the dataset
 all_data <- read_csv("data/arabica_data_cleaned.csv")
+
+# MAP SETUP
+coffee_avgs2 <- read_csv("data/coffee_avgs2.csv")
+
+# Read world shape file with the rgdal library
+
+world2 <- readOGR( 
+    dsn = paste0(getwd(),"/data/world_shape_file"), 
+    layer = "TM_WORLD_BORDERS_SIMPL-0.3",
+    verbose = FALSE
+)
+
+# Add country average data to world2
+library(tigris)
+world2 = geo_join(world2,
+                  coffee_avgs2,
+                  # "FIPS",
+                  # "FIPS",
+                  by = "FIPS",
+                  how = "left")
+
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
@@ -92,15 +114,14 @@ ui <- fluidPage(
                             ),
                    tabPanel("Visualizations",
                                 tabsetPanel(type = "tabs",
-                                            tabPanel("Map", 
+                                            tabPanel("Map",
                                                      br(),
                                                      sidebarPanel(
-                                                         radioButtons("radio_map", 
+                                                         width = 2,
+                                                         radioButtons("radio_map",
                                                                       label = h5("Variable to show"),
-                                                                      choices = list("Aroma" = 1, "Flavor" = 2, "Aftertaste" = 3,
-                                                                                     "Acidity" = 4
-                                                                                     ), 
-                                                                      selected = 1)
+                                                                      choices = list("Aroma" = 1, "Flavor" = 2) #Add Rest Here
+                                                         )
                                                      ),
                                                      mainPanel(
                                                          plotOutput("plot_map")
@@ -109,6 +130,7 @@ ui <- fluidPage(
                                             tabPanel("Altitude Graph", 
                                                      br(),
                                                      sidebarPanel(
+                                                         width = 2,
                                                          radioButtons("radio_altitude", label = h5("Review Factors"),
                                                                       choices = list("Aroma" = 1, "Flavor" = 2, "Aftertaste" = 3,
                                                                                      "Acidity" = 4, "Body" = 5, "Balance" = 6,
@@ -124,10 +146,48 @@ ui <- fluidPage(
                                                 "Stacked Graph",
                                                 br(),
                                                 sidebarPanel(
-                                                    selectInput("select_stack",
+                                                    width = 3,
+                                                    selectizeInput("stack_country",
                                                                 label = h5("Country"),
-                                                                choices = list("Choice 1" = 1, "Choice 2" = 2, "Choice 3" = 3),
-                                                                selected = 1)
+                                                                choices = list("Brazil",
+                                                                               "Burundi",
+                                                                               "China",
+                                                                               "Colombia",
+                                                                               "Costa Rica",
+                                                                               "Cote d'Ivoire",
+                                                                               "Ecuador",
+                                                                               "El Salvador",
+                                                                               "Ethiopia",
+                                                                               "Guatemala",
+                                                                               "Haiti",
+                                                                               "Honduras",
+                                                                               "India",
+                                                                               "Indonesia",
+                                                                               "Japan",
+                                                                               "Kenya",
+                                                                               "Laos",
+                                                                               "Malawi",
+                                                                               "Mauritius",
+                                                                               "Mexico",
+                                                                               "Myanmar",
+                                                                               "Nicaragua",
+                                                                               "Panama",
+                                                                               "Papua New Guinea",
+                                                                               "Peru",
+                                                                               "Philippines",
+                                                                               "Puerto Rico",
+                                                                               "Rwanda",
+                                                                               "Taiwan",
+                                                                               "Tanzania",
+                                                                               "Thailand",
+                                                                               "Uganda",
+                                                                               "United States",
+                                                                               "Hawaii",
+                                                                               "Vietnam",
+                                                                               "Zambia"),
+                                                                multiple = TRUE,
+                                                                options = list(plugins= list('remove_button'))
+                                                                )
                                                 ),
                                                 mainPanel(
                                                     plotOutput("plot_stack")
@@ -138,6 +198,7 @@ ui <- fluidPage(
                                                 "Radar Graph",
                                                 br(),
                                                 sidebarPanel(
+                                                    width = 3,
                                                     selectInput("radar_country", 
                                                                 label = h5("Select Country"), 
                                                                 choices = list("Brazil",
@@ -176,7 +237,7 @@ ui <- fluidPage(
                                                                                "Hawaii",
                                                                                "Vietnam",
                                                                                "Zambia"),
-                                                                selected = 1),
+                                                                selected = 1)
                                                 ),
                                                 mainPanel(
                                                     plotOutput("plot_radar",
@@ -237,16 +298,65 @@ ui <- fluidPage(
                             )
                    )
         )
-    )
+)
 
 # Define server logic required to draw a histogram
 server <- function(input, output, session) {
     
     output$plot_map <- renderLeaflet({
+
+        #########################################################################
+        # Map
+        #########################################################################
         
-        print(input$radio_map)
+        # input = string of number of choice. ex. "1" for aroma, "2" for flavor
+        # now it is that number. ex. 1 for aroma
+        ### Take in user input: use integer input from radio selection
+        map_input <- parse_number(input$radio_map)
+        
+        # variable name
+        var_name <- c("Aroma", "Flavor", "Aftertaste", "Acidity", "Body",
+                          "Balance", "Uniformity", "Clean.Cup", "Sweetness")
+        #FIX TO RIGHT LIST
+        
+        ### Take in user input: use integer input from radio and get string value
+        # altitude_input <- country_code[parse_number(input$radio_altitude)]
         
         #put graph here, Amber
+        
+        # variable
+        # aroma, flavor, aftertaste, acidity, sweetness, total_cup_points, kg
+        v <- world2@data$flavor
+        
+        # Create a color palette with handmade bins
+        mypalette <- colorBin( palette="YlGn",
+                               domain=v,
+                               na.color="transparent",
+                               bins=6)
+        
+        # Prepare the text for tooltips:
+        mytext <- paste(
+            world2@data$NAME,"<br/>", 
+            round(v, 2),
+            # "Rating: ", round(v, 2), 
+            sep="") %>%
+            lapply(htmltools::HTML)
+        
+        # Initialize the leaflet map
+        leaflet(world2) %>% 
+            # Then we Add default OpenStreetMap map tiles
+            addTiles() %>%
+            setView( lat=10, lng=0 , zoom=1) %>%
+            addPolygons( stroke = FALSE,
+                         fillOpacity = 0.5,
+                         smoothFactor = 0.5,
+                         fillColor = ~mypalette(v),
+                         label = mytext ) %>%
+            addLegend( pal=mypalette,
+                       values=~v,
+                       opacity=0.9,
+                       title = "Rating",
+                       position = "bottomleft" )
     })
     
     output$plot_altitude <- renderPlot({
@@ -345,8 +455,13 @@ server <- function(input, output, session) {
     })
     
     output$plot_stacked <- renderPlot({
+        
+        #########################################################################
+        # Stacked Bar Charts
+        #########################################################################
+        
         country_list <- input$stack_country
-        factor_list <- input$stack_checkbox
+        factor_list <- input$checkbox_stack
         
         # data <- filter(BarAvg,
         #                )
