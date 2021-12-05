@@ -3,7 +3,8 @@ library(shiny)
 library(shinythemes)
 library(shinyjs)
 library(leaflet)
-library("fmsb")
+library(fmsb)
+library(rgdal)
 
 
 ### Read in the dataset
@@ -13,7 +14,7 @@ all_data <- read_csv("data/arabica_data_cleaned.csv")
 coffee_avgs2 <- read_csv("data/coffee_avgs2.csv")
 
 # Read world shape file with the rgdal library
-library(rgdal)
+
 world2 <- readOGR( 
     dsn= paste0(getwd(),"/data/world_shape_file") , 
     layer="TM_WORLD_BORDERS_SIMPL-0.3",
