@@ -16,9 +16,9 @@ coffee_avgs2 <- read_csv("data/coffee_avgs2.csv")
 # Read world shape file with the rgdal library
 
 world2 <- readOGR( 
-    dsn= paste0(getwd(),"/data/world_shape_file") , 
-    layer="TM_WORLD_BORDERS_SIMPL-0.3",
-    verbose=FALSE
+    dsn = paste0(getwd(),"/data/world_shape_file"), 
+    layer = "TM_WORLD_BORDERS_SIMPL-0.3",
+    verbose = FALSE
 )
 
 # Add country average data to world2
@@ -87,15 +87,14 @@ ui <- fluidPage(
                             
                             ),
                    tabPanel("Visualizations",
-                            
-                            
                                 tabsetPanel(type = "tabs",
-                                            tabPanel("Map", 
+                                            tabPanel("Map",
                                                      br(),
                                                      sidebarPanel(
+                                                         width = 2,
                                                          radioButtons("radio_map",
                                                                       label = h5("Variable to show"),
-                                                                      choices = list("Aroma" = 1, "Flavor" = 2 #ADD REST)
+                                                                      choices = list("Aroma" = 1, "Flavor" = 2) #Add Rest Here
                                                          )
                                                      ),
                                                      mainPanel(
@@ -105,6 +104,7 @@ ui <- fluidPage(
                                             tabPanel("Altitude Graph", 
                                                      br(),
                                                      sidebarPanel(
+                                                         width = 2,
                                                          radioButtons("radio_altitude", label = h5("Review Factors"),
                                                                       choices = list("Aroma" = 1, "Flavor" = 2, "Aftertaste" = 3,
                                                                                      "Acidity" = 4, "Body" = 5, "Balance" = 6,
@@ -120,10 +120,48 @@ ui <- fluidPage(
                                                 "Stacked Graph",
                                                 br(),
                                                 sidebarPanel(
-                                                    selectInput("select_stack",
+                                                    width = 3,
+                                                    selectizeInput("stack_country",
                                                                 label = h5("Country"),
-                                                                choices = list("Choice 1" = 1, "Choice 2" = 2, "Choice 3" = 3),
-                                                                selected = 1)
+                                                                choices = list("Brazil",
+                                                                               "Burundi",
+                                                                               "China",
+                                                                               "Colombia",
+                                                                               "Costa Rica",
+                                                                               "Cote d'Ivoire",
+                                                                               "Ecuador",
+                                                                               "El Salvador",
+                                                                               "Ethiopia",
+                                                                               "Guatemala",
+                                                                               "Haiti",
+                                                                               "Honduras",
+                                                                               "India",
+                                                                               "Indonesia",
+                                                                               "Japan",
+                                                                               "Kenya",
+                                                                               "Laos",
+                                                                               "Malawi",
+                                                                               "Mauritius",
+                                                                               "Mexico",
+                                                                               "Myanmar",
+                                                                               "Nicaragua",
+                                                                               "Panama",
+                                                                               "Papua New Guinea",
+                                                                               "Peru",
+                                                                               "Philippines",
+                                                                               "Puerto Rico",
+                                                                               "Rwanda",
+                                                                               "Taiwan",
+                                                                               "Tanzania",
+                                                                               "Thailand",
+                                                                               "Uganda",
+                                                                               "United States",
+                                                                               "Hawaii",
+                                                                               "Vietnam",
+                                                                               "Zambia"),
+                                                                multiple = TRUE,
+                                                                options = list(plugins= list('remove_button'))
+                                                                )
                                                 ),
                                                 mainPanel(
                                                     plotOutput("plot_stack")
@@ -134,6 +172,7 @@ ui <- fluidPage(
                                                 "Radar Graph",
                                                 br(),
                                                 sidebarPanel(
+                                                    width = 3,
                                                     selectInput("radar_country", 
                                                                 label = h5("Select Country"), 
                                                                 choices = list("Brazil",
@@ -234,12 +273,16 @@ ui <- fluidPage(
                             )
                    )
         )
-    ),
+)
 
 # Define server logic required to draw a histogram
 server <- function(input, output, session) {
     
     output$plot_map <- renderLeaflet({
+        
+        #########################################################################
+        # Map
+        #########################################################################
         
         # input = string of number of choice. ex. "1" for aroma, "2" for flavor
         # now it is that number. ex. 1 for aroma
@@ -388,7 +431,12 @@ server <- function(input, output, session) {
     })
     
     output$plot_stacked <- renderPlot({
-        country_list <- input$select_country
+        
+        #########################################################################
+        # Stacked Bar Charts
+        #########################################################################
+        
+        country_list <- input$stack_country
         factor_list <- input$checkbox_stack
         
         # data <- filter(BarAvg,
