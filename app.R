@@ -174,8 +174,15 @@ ui <- fluidPage(
                                                      sidebarPanel(
                                                          width = 2,
                                                          radioButtons("radio_map",
-                                                                      label = h5("Variable to show"),
-                                                                      choices = list("Aroma" = 1, "Flavor" = 2) #Add Rest Here
+                                                                      label = h5("Review Factors"),
+                                                                      choices = list("Aroma" = 1, 
+                                                                                     "Flavor" = 2, 
+                                                                                     "Aftertaste" = 3, 
+                                                                                     "Acidity" = 4, 
+                                                                                     "Sweetness" = 5, 
+                                                                                     "Total Cup Points" = 6, 
+                                                                                     "Total Kg" = 7),
+                                                                      selected = 1
                                                          )
                                                      ),
                                                      mainPanel(
@@ -376,19 +383,23 @@ server <- function(input, output, session) {
         ### Take in user input: use integer input from radio selection
         map_input <- parse_number(input$radio_map)
         
-        # variable name
-        var_name <- c("Aroma", "Flavor", "Aftertaste", "Acidity", "Body",
-                          "Balance", "Uniformity", "Clean.Cup", "Sweetness")
-        #FIX TO RIGHT LIST
+        # variable name list
+        var_names <- c("Aroma", "Flavor", "Aftertaste", "Acidity", "Sweetness",
+                          "Total Cup Points", "Total Kg")
+        
+        # variable list
+        vars <- c(world2@data$aroma, world2@data$flavor, world2@data$aftertaste,
+                  world2@data$acidity, world2@data$sweetness,
+                  world2@data$total_cup_points, world2@data$kg)
         
         ### Take in user input: use integer input from radio and get string value
         # altitude_input <- country_code[parse_number(input$radio_altitude)]
         
-        #put graph here, Amber
         
-        # variable
-        # aroma, flavor, aftertaste, acidity, sweetness, total_cup_points, kg
-        v <- world2@data$flavor
+        # set variable and name
+        v <- world2@data$aroma
+        # v <- vars[map_input]
+        v_name <- var_names[map_input]
         
         # Create a color palette with handmade bins
         mypalette <- colorBin(palette="YlGn",
@@ -396,17 +407,15 @@ server <- function(input, output, session) {
                               na.color="transparent",
                               bins=6)
         
-        # Prepare the text for tooltips:
+        # Prepare the text for tooltips
         mytext <- paste(
             world2@data$NAME,"<br/>", 
-            round(v, 2),
-            # "Rating: ", round(v, 2), 
+            v_name, ": ", round(v, 2),
             sep="") %>%
             lapply(htmltools::HTML)
         
         # Initialize the leaflet map
-        world_map <- leaflet(world2) %>% 
-            # Then we Add default OpenStreetMap map tiles
+        world_map <- leaflet(world2) %>%
                      addTiles() %>%
                      setView(lat=10, lng=0 , zoom=1) %>%
                      addPolygons(stroke = FALSE,
@@ -417,7 +426,7 @@ server <- function(input, output, session) {
                      addLegend(pal = mypalette,
                                values = ~v,
                                opacity = 0.9,
-                               title = "Rating",
+                               title = v_name,
                                position = "bottomleft" )
     })
     
