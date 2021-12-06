@@ -279,12 +279,12 @@ server <- function(input, output, session) {
         # Altitude Graphs
         #########################################################################
 
-        # Set country code
-        country_code <- c("Aroma", "Flavor", "Aftertaste", "Acidity", "Body",
+        # Set factor code
+        factor_code <- c("Aroma", "Flavor", "Aftertaste", "Acidity", "Body",
                           "Balance", "Uniformity", "Clean.Cup", "Sweetness")
 
         ### Take in user input: use integer input from radio and get string value
-        altitude_input <- country_code[parse_number(input$radio_altitude)]
+        altitude_input <- factor_code[parse_number(input$radio_altitude)]
         
         ### Filter out outliers, insignificant data points
         df2 <- filter(all_data, 
