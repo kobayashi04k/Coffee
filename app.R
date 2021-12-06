@@ -13,22 +13,6 @@ all_data <- read_csv("data/arabica_data_cleaned.csv")
 # MAP SETUP
 coffee_avgs2 <- read_csv("data/coffee_avgs2.csv")
 
-# Read world shape file with the rgdal library
-
-world2 <- readOGR( 
-    dsn = paste0(getwd(),"/data/world_shape_file"), 
-    layer = "TM_WORLD_BORDERS_SIMPL-0.3",
-    verbose = FALSE
-)
-
-# Add country average data to world2
-world2 <- geo_join(world2,
-                   coffee_avgs2,
-                   # "FIPS",
-                   # "FIPS",
-                   by = "FIPS",
-                   how = "left")
-
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
@@ -383,16 +367,37 @@ server <- function(input, output, session) {
         ### Take in user input: use integer input from radio selection
         map_input <- parse_number(input$radio_map)
         
+        # Read world shape file with the rgdal library
+        
+        world <- readOGR( 
+          dsn = paste0(getwd(),"/data/world_shape_file"), 
+          layer = "TM_WORLD_BORDERS_SIMPL-0.3",
+          verbose = FALSE
+        )
+        
+        # Add country average data to world2
+        world_2 <- geo_join(world,
+                           coffee_avgs2,
+                           # "FIPS",
+                           # "FIPS",
+                           by = "FIPS",
+                           how = "left")
+        
+        print(get("world2@data$aroma"))
+        
         # variable name list
         var_names <- c("Aroma", "Flavor", "Aftertaste", "Acidity", "Sweetness",
                           "Total Cup Points", "Total Kg")
         
         # variable list
         # vars <- c("aroma", "flavor")
-        #vars <- c("world2@data$aroma", "world2@data$flavor")
-        vars <- c(world2@data$aroma, world2@data$flavor, world2@data$aftertaste,
-                  world2@data$acidity, world2@data$sweetness,
-                  world2@data$total_cup_points, world2@data$kg)
+        vars <- c("world2@data$aroma", "world2@data$flavor")
+        # vars <- c(world2@data$aroma, world2@data$flavor, world2@data$aftertaste,
+        #           world2@data$acidity, world2@data$sweetness,
+        #           world2@data$total_cup_points, world2@data$kg)
+        
+        print("This one")
+        print(get(vars[1]))
         
         ### Take in user input: use integer input from radio and get string value
         # altitude_input <- country_code[parse_number(input$radio_altitude)]
