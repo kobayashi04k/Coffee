@@ -388,6 +388,8 @@ server <- function(input, output, session) {
                           "Total Cup Points", "Total Kg")
         
         # variable list
+        # vars <- c("aroma", "flavor")
+        #vars <- c("world2@data$aroma", "world2@data$flavor")
         vars <- c(world2@data$aroma, world2@data$flavor, world2@data$aftertaste,
                   world2@data$acidity, world2@data$sweetness,
                   world2@data$total_cup_points, world2@data$kg)
@@ -397,8 +399,18 @@ server <- function(input, output, session) {
         
         
         # set variable and name
-        v <- world2@data$aroma
-        # v <- vars[map_input]
+        #v <- world2@data$aroma     ### this one works (no switching)
+        #print(world2@data$aroma)
+        #print(get("world2@data$aroma"))
+        v <- vars[1]
+        # v <- get(vars[map_input]) ### this one works in a separate file but doesn't here somehow
+        # v <- world2@data[vars[1]]
+        # View(world2@data[vars[1]])
+        # View(world2@data$aroma)
+        # typeof(world2@data[vars[1]])
+        # typeof(world2@data$aroma)
+        # View(vars[1])
+        
         v_name <- var_names[map_input]
         
         # Create a color palette with handmade bins
