@@ -369,21 +369,27 @@ server <- function(input, output, session) {
         
         # Read world shape file with the rgdal library
         
-        world <- readOGR( 
+        world2 <- readOGR( 
           dsn = paste0(getwd(),"/data/world_shape_file"), 
           layer = "TM_WORLD_BORDERS_SIMPL-0.3",
           verbose = FALSE
         )
         
         # Add country average data to world2
-        world_2 <- geo_join(world,
+        world2 <- geo_join(world2,
                            coffee_avgs2,
                            # "FIPS",
                            # "FIPS",
                            by = "FIPS",
                            how = "left")
         
-        print(get("world2@data$aroma"))
+        #v <- get("world2@data")
+        # v <- get('aroma', world2@data)
+        # print(v)
+        #v <- v@data$aroma
+        #print(world2)
+        
+        #print(get("world2@data$aroma"))
         
         # variable name list
         var_names <- c("Aroma", "Flavor", "Aftertaste", "Acidity", "Sweetness",
@@ -391,13 +397,14 @@ server <- function(input, output, session) {
         
         # variable list
         # vars <- c("aroma", "flavor")
-        vars <- c("world2@data$aroma", "world2@data$flavor")
-        # vars <- c(world2@data$aroma, world2@data$flavor, world2@data$aftertaste,
-        #           world2@data$acidity, world2@data$sweetness,
-        #           world2@data$total_cup_points, world2@data$kg)
+        #vars <- list("world2@data$aroma", "world2@data$flavor")
+        vars <- c('aroma', 'flavor', 'aftertaste',
+                  'acidity', 'sweetness',
+                  'total_cup_points', 'kg')
         
-        print("This one")
-        print(get(vars[1]))
+        # print("This one")
+        #print(world2@data$aroma)
+        #print(get(vars[1]))
         
         ### Take in user input: use integer input from radio and get string value
         # altitude_input <- country_code[parse_number(input$radio_altitude)]
@@ -407,7 +414,8 @@ server <- function(input, output, session) {
         #v <- world2@data$aroma     ### this one works (no switching)
         #print(world2@data$aroma)
         #print(get("world2@data$aroma"))
-        v <- vars[1]
+       # v <- get("world2@data$aroma")
+        v <- get(vars[map_input], world2@data)
         # v <- get(vars[map_input]) ### this one works in a separate file but doesn't here somehow
         # v <- world2@data[vars[1]]
         # View(world2@data[vars[1]])
