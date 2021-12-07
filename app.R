@@ -13,7 +13,6 @@ all_data <- read_csv("data/arabica_data_cleaned.csv")
 # MAP SETUP
 coffee_avgs2 <- read_csv("data/coffee_avgs2.csv")
 
-<<<<<<< HEAD
 stack_data <- read_csv("data/stack_data.csv")
 
 # Read world shape file with the rgdal library
@@ -32,8 +31,6 @@ world2 <- geo_join(world2,
                    by = "FIPS",
                    how = "left")
 
-=======
->>>>>>> test
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
@@ -400,22 +397,6 @@ server <- function(input, output, session) {
         # now it is that number. ex. 1 for aroma
         ### Take in user input: use integer input from radio selection
         map_input <- parse_number(input$radio_map)
-        
-        # Read world shape file with the rgdal library
-        
-        world2 <- readOGR( 
-          dsn = paste0(getwd(),"/data/world_shape_file"), 
-          layer = "TM_WORLD_BORDERS_SIMPL-0.3",
-          verbose = FALSE
-        )
-        
-        # Add country average data to world2
-        world2 <- geo_join(world2,
-                           coffee_avgs2,
-                           # "FIPS",
-                           # "FIPS",
-                           by = "FIPS",
-                           how = "left")
         
         #v <- get("world2@data")
         # v <- get('aroma', world2@data)
