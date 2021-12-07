@@ -13,6 +13,7 @@ all_data <- read_csv("data/arabica_data_cleaned.csv")
 # MAP SETUP
 coffee_avgs2 <- read_csv("data/coffee_avgs2.csv")
 
+<<<<<<< HEAD
 stack_data <- read_csv("data/stack_data.csv")
 
 # Read world shape file with the rgdal library
@@ -31,6 +32,8 @@ world2 <- geo_join(world2,
                    by = "FIPS",
                    how = "left")
 
+=======
+>>>>>>> test
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
@@ -176,8 +179,15 @@ ui <- fluidPage(
                                                      sidebarPanel(
                                                          width = 2,
                                                          radioButtons("radio_map",
-                                                                      label = h5("Variable to show"),
-                                                                      choices = list("Aroma" = 1, "Flavor" = 2) #Add Rest Here
+                                                                      label = h5("Review Factors"),
+                                                                      choices = list("Aroma" = 1, 
+                                                                                     "Flavor" = 2, 
+                                                                                     "Aftertaste" = 3, 
+                                                                                     "Acidity" = 4, 
+                                                                                     "Sweetness" = 5, 
+                                                                                     "Total Cup Points" = 6, 
+                                                                                     "Total Kg" = 7),
+                                                                      selected = 1
                                                          )
                                                      ),
                                                      mainPanel(
@@ -391,19 +401,64 @@ server <- function(input, output, session) {
         ### Take in user input: use integer input from radio selection
         map_input <- parse_number(input$radio_map)
         
-        # variable name
-        var_name <- c("Aroma", "Flavor", "Aftertaste", "Acidity", "Body",
-                          "Balance", "Uniformity", "Clean.Cup", "Sweetness")
-        #FIX TO RIGHT LIST
+        # Read world shape file with the rgdal library
+        
+        world2 <- readOGR( 
+          dsn = paste0(getwd(),"/data/world_shape_file"), 
+          layer = "TM_WORLD_BORDERS_SIMPL-0.3",
+          verbose = FALSE
+        )
+        
+        # Add country average data to world2
+        world2 <- geo_join(world2,
+                           coffee_avgs2,
+                           # "FIPS",
+                           # "FIPS",
+                           by = "FIPS",
+                           how = "left")
+        
+        #v <- get("world2@data")
+        # v <- get('aroma', world2@data)
+        # print(v)
+        #v <- v@data$aroma
+        #print(world2)
+        
+        #print(get("world2@data$aroma"))
+        
+        # variable name list
+        var_names <- c("Aroma", "Flavor", "Aftertaste", "Acidity", "Sweetness",
+                          "Total Cup Points", "Total Kg")
+        
+        # variable list
+        # vars <- c("aroma", "flavor")
+        #vars <- list("world2@data$aroma", "world2@data$flavor")
+        vars <- c('aroma', 'flavor', 'aftertaste',
+                  'acidity', 'sweetness',
+                  'total_cup_points', 'kg')
+        
+        # print("This one")
+        #print(world2@data$aroma)
+        #print(get(vars[1]))
         
         ### Take in user input: use integer input from radio and get string value
         # altitude_input <- country_code[parse_number(input$radio_altitude)]
         
-        #put graph here, Amber
         
-        # variable
-        # aroma, flavor, aftertaste, acidity, sweetness, total_cup_points, kg
-        v <- world2@data$flavor
+        # set variable and name
+        #v <- world2@data$aroma     ### this one works (no switching)
+        #print(world2@data$aroma)
+        #print(get("world2@data$aroma"))
+       # v <- get("world2@data$aroma")
+        v <- get(vars[map_input], world2@data)
+        # v <- get(vars[map_input]) ### this one works in a separate file but doesn't here somehow
+        # v <- world2@data[vars[1]]
+        # View(world2@data[vars[1]])
+        # View(world2@data$aroma)
+        # typeof(world2@data[vars[1]])
+        # typeof(world2@data$aroma)
+        # View(vars[1])
+        
+        v_name <- var_names[map_input]
         
         # Create a color palette with handmade bins
         mypalette <- colorBin(palette="YlGn",
@@ -411,17 +466,15 @@ server <- function(input, output, session) {
                               na.color="transparent",
                               bins=6)
         
-        # Prepare the text for tooltips:
+        # Prepare the text for tooltips
         mytext <- paste(
             world2@data$NAME,"<br/>", 
-            round(v, 2),
-            # "Rating: ", round(v, 2), 
+            v_name, ": ", round(v, 2),
             sep="") %>%
             lapply(htmltools::HTML)
         
         # Initialize the leaflet map
-        world_map <- leaflet(world2) %>% 
-            # Then we Add default OpenStreetMap map tiles
+        world_map <- leaflet(world2) %>%
                      addTiles() %>%
                      setView(lat=10, lng=0 , zoom=1) %>%
                      addPolygons(stroke = FALSE,
@@ -432,7 +485,7 @@ server <- function(input, output, session) {
                      addLegend(pal = mypalette,
                                values = ~v,
                                opacity = 0.9,
-                               title = "Rating",
+                               title = v_name,
                                position = "bottomleft" )
     })
     
