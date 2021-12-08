@@ -15,6 +15,7 @@ coffee_avgs2 <- read_csv("data/coffee_avgs2.csv")
 
 stack_data <- read_csv("data/stack_data.csv")
 
+
 # Read world shape file with the rgdal library
 
 world2 <- readOGR( 
@@ -36,9 +37,17 @@ world2 <- geo_join(world2,
 ui <- fluidPage(
     #shinythemes::themeSelector(),
     fluidRow(
-        navbarPage(NULL,
+
+        navbarPage(NULL, 
                    theme = shinytheme("yeti"),
+                   
                    tabPanel("Introduction",
+                            tags$img(
+                              src = "half.jpg",
+                              style = 'position: absolute; opacity: 0.7; margin-top: -25px; margin-left: -15px',
+                              width = '100%',
+                              height = '94%'
+                            ),
                                 column(1),
                                 column(5,
                                        h3("Introduction"),
@@ -49,12 +58,12 @@ ui <- fluidPage(
                                        h5("Takeaways"),
                                        p("In gravida porta egestas. Donec in est id urna vulputate egestas sit amet eu lorem. Fusce posuere lacus non nisl interdum, eget accumsan nisl lacinia. Phasellus posuere porttitor nibh et pulvinar. Suspendisse convallis eget nulla ut faucibus. Donec vitae condimentum lacus. Mauris tristique bibendum metus dictum tempor. Aenean vitae eleifend metus.")
                                 ),
-                                column(5,
-                                       br(), br(), br(), br(),
-                                       img(src = "vertical-placeholder.jpg",
-                                           height = "450", 
-                                           width = "100%")  
-                                )    
+                                # column(5,
+                                #        br(), br(), br(), br(),
+                                #        img(src = "background.jpg",
+                                #            height = "500",
+                                #            width = "100%")
+                                # )
                             ),
                    tabPanel("Design Process",
                             column(1),
@@ -188,7 +197,10 @@ ui <- fluidPage(
                                                          )
                                                      ),
                                                      mainPanel(
+                                                       wellPanel(
                                                          leafletOutput("plot_map")
+                                                       ),
+                                                       p("Note:")
                                                      )
                                             ),
                                             tabPanel("Altitude Graph", 
@@ -209,7 +221,10 @@ ui <- fluidPage(
                                                                       selected = 1)
                                                      ),
                                                      mainPanel(
+                                                       wellPanel(
                                                          plotOutput("plot_altitude")
+                                                       ),
+                                                       p("Note:")
                                                      )
                                             ),
 
@@ -274,7 +289,10 @@ ui <- fluidPage(
                                                                        selected = 1)
                                                 ),
                                                 mainPanel(
+                                                  wellPanel(
                                                     plotOutput("plot_stack")
+                                                  ),
+                                                  p("Note:")
                                                 )
                                             ),
                                             
@@ -324,14 +342,17 @@ ui <- fluidPage(
                                                                 selected = 1)
                                                 ),
                                                 mainPanel(
+                                                  wellPanel(
                                                     plotOutput("plot_radar",
-                                                               height = "600px")
+                                                               height = "450px")
+                                                  ),
+                                                  p("Note:")
                                                 )
                                             ),
                                             
                                             tabPanel("Coffee Trivia",
                                                      br(),
-                                                     fluidPage(
+                                                     wellPanel(
                                                         useShinyjs(),
                                                         uiOutput("question_home"),
                                                         uiOutput("question_one"),
@@ -343,7 +364,8 @@ ui <- fluidPage(
                                                         uiOutput("question_seven"),
                                                         uiOutput("question_eight"),
                                                         uiOutput("question_nine"),
-                                                        uiOutput("question_ten")
+                                                        uiOutput("question_ten"),
+                                                        uiOutput("see_results")
                                                      )
                                             )
                             )
@@ -570,12 +592,15 @@ server <- function(input, output, session) {
     })
     
     # Visualization for Trivia Game
+    
+    #score <- reactiveVal(0)
+    #score <- 0
+    
     output$question_home <- renderUI({
         div(id = "this_home",
             align = "center",
             h1("Welcome!"),
             p("Test your knowledge of coffee by answering 10 trivia questions!"),
-            #br(),
             actionButton("button_start", "Start")
         )
     })
@@ -592,11 +617,12 @@ server <- function(input, output, session) {
     
     output$question_one <- renderUI({
         div(id = "one", hidden = TRUE,
+            align = "center",
             h3("Question 1"),
             p("Which country produces the most coffee?"),
             img(src = "coffee_map.jpg",
                 height = "300", 
-                width = "100%"),
+                width = "50%"),
             br(), br(),
             radioButtons("radio_one",
                          label = NULL,
@@ -608,6 +634,7 @@ server <- function(input, output, session) {
                                         "Ethiopia" = 4)
                          ),   
             textOutput("answer_one"),
+            br(),
             disabled(actionButton("button_one", "Next Question"))
             
         )
@@ -621,9 +648,12 @@ server <- function(input, output, session) {
     observeEvent(input$radio_one, {
         shinyjs::enable("button_one")
         shinyjs::disable("radio_one")
+        # if(input$radio_one == 2){
+        #   score <<- score + 1
+        # }
         output$answer_one <- renderText(
             if(input$radio_one == 2){
-                "Correct! Brazil produces 40% of the world's coffee."   
+                "Correct! Brazil produces 40% of the world's coffee."
             }
             else{
                 "Incorrect. The correct answer is Brazil, where 40% of the world's coffee is produced."
@@ -640,7 +670,11 @@ server <- function(input, output, session) {
     output$question_two <- renderUI({
         div(id = "two", hidden = TRUE,
             h3("Question 2"),
+            align = "center",
             p("What do coffee beans grow on?"),
+            img(src = "plant.jpg",
+                height = "300", 
+                width = "50%"),
             br(),br(),
             radioButtons("radio_two",
                          label = NULL,
@@ -652,6 +686,7 @@ server <- function(input, output, session) {
                                         "The roots of the coffee plant" = 4)
             ),   
             textOutput("answer_two"),
+            br(),
             disabled(actionButton("button_two", "Next Question"))
         )
     })
@@ -664,9 +699,12 @@ server <- function(input, output, session) {
     observeEvent(input$radio_two, {
         shinyjs::enable("button_two")
         shinyjs::disable("radio_two")
+        # if(input$radio_two == 3){
+        #   score <<- score + 1
+        # }
         output$answer_two <- renderText(
             if(input$radio_two == 3){
-                "Correct. Coffee grows on a bush, and they take around three to four years to grow."   
+                "Correct! Coffee grows on a bush, and they take around three to four years to grow."   
             }
             else{
                 "Incorrect. Coffee beans actually grow on a bush."
@@ -682,8 +720,12 @@ server <- function(input, output, session) {
     
     output$question_three <- renderUI({
         div(id = "three", hidden = TRUE,
+            align = "center",
             h3("Question 3"),
             p("This coffee bean shares the same name as a programming language."),
+            img(src = "java_coffee.jpg",
+                height = "300", 
+                width = "50%"),
             br(),br(),
             radioButtons("radio_three",
                          label = NULL,
@@ -695,6 +737,7 @@ server <- function(input, output, session) {
                                         "Rust" = 4)
             ),   
             textOutput("answer_three"),
+            br(),
             disabled(actionButton("button_three", "Next Question"))
         )
     })
@@ -707,6 +750,10 @@ server <- function(input, output, session) {
     observeEvent(input$radio_three, {
         shinyjs::enable("button_three")
         shinyjs::disable("radio_three")
+        # if(input$radio_three == 1){
+        #   score <<- score + 1
+        #   print(score)
+        # }
         output$answer_three <- renderText(
             if(input$radio_three == 1){
                 "Correct. The creators of Java, initially named Oak, renamed their project to be based on the Java coffee bean (an Indonesian coffee)."   
@@ -725,8 +772,12 @@ server <- function(input, output, session) {
     
     output$question_four <- renderUI({
         div(id = "four", hidden = TRUE,
+            align = "center",
             h3("Question 4"),
             p("Most coffees are a blend of..."),
+            img(src = "arabica_robusta.jpg",
+                height = "300", 
+                width = "50%"),
             br(),br(),
             radioButtons("radio_four",
                          label = NULL,
@@ -738,6 +789,7 @@ server <- function(input, output, session) {
                                         "African and South American beans" = 4)
             ),   
             textOutput("answer_four"),
+            br(),
             disabled(actionButton("button_four", "Next Question"))
         )
     })
@@ -750,6 +802,9 @@ server <- function(input, output, session) {
     observeEvent(input$radio_four, {
         shinyjs::enable("button_four")
         shinyjs::disable("radio_four")
+        # if(input$radio_four == 3){
+        #   score <<- score + 1
+        # }
         output$answer_four <- renderText(
             if(input$radio_four == 3){
                 "Correct. There are many beans out there, but the only two that are processed for drinking are Robusta and Arabica.
@@ -768,8 +823,12 @@ server <- function(input, output, session) {
     
     output$question_five <- renderUI({
         div(id = "five", hidden = TRUE,
+            align = "center",
             h3("Question 5"),
             p("The world's most expensive coffee costs around how much?"),
+            img(src = "expensive.jpg",
+                height = "300", 
+                width = "50%"),
             br(),br(),
             radioButtons("radio_five",
                          label = NULL,
@@ -781,6 +840,7 @@ server <- function(input, output, session) {
                                         "$1,000/pound" = 4)
             ),   
             textOutput("answer_five"),
+            br(),
             disabled(actionButton("button_five", "Next Question"))
         )
     })
@@ -793,6 +853,9 @@ server <- function(input, output, session) {
     observeEvent(input$radio_five, {
         shinyjs::enable("button_five")
         shinyjs::disable("radio_five")
+        # if(input$radio_five == 2){
+        #   score <<- score + 1
+        # }
         output$answer_five <- renderText(
             if(input$radio_five == 2){
                 "Correct! The Kopi Luwak is the world's most expensive coffee. The bean is plucked from civets' feces."   
@@ -811,8 +874,12 @@ server <- function(input, output, session) {
     
     output$question_six <- renderUI({
         div(id = "six", hidden = TRUE,
+            align = "center",
             h3("Question 6"),
             p("Which country drinks the most coffee?"),
+            img(src = "drinking_coffee.jpg",
+                height = "300", 
+                width = "50%"),
             br(),br(),
             radioButtons("radio_six",
                          label = NULL,
@@ -824,6 +891,7 @@ server <- function(input, output, session) {
                                         "Finland" = 4)
             ),   
             textOutput("answer_six"),
+            br(),
             disabled( actionButton("button_six", "Next Question"))
         )
     })
@@ -836,6 +904,9 @@ server <- function(input, output, session) {
     observeEvent(input$radio_six, {
         shinyjs::enable("button_six")
         shinyjs::disable("radio_six")
+        # if(input$radio_six == 4){
+        #   score <<- score + 1
+        # }
         output$answer_six <- renderText(
             if(input$radio_six == 4){
                 "Correct! Finland consumes the most coffee in the entire world with each person drinking 12.5 kg of coffee."   
@@ -853,8 +924,12 @@ server <- function(input, output, session) {
     
     output$question_seven <- renderUI({
         div(id = "seven", hidden = TRUE,
+            align = "center",
             h3("Question 7"),
             p("Espresso in Italian means..."),
+            img(src = "espresso.jpg",
+                height = "300", 
+                width = "50%"),
             br(),br(),
             radioButtons("radio_seven",
                          label = NULL,
@@ -866,6 +941,7 @@ server <- function(input, output, session) {
                                         "Heat Up" = 4)
             ),   
             textOutput("answer_seven"),
+            br(),
             disabled(actionButton("button_seven", "Next Question"))
         )
     })
@@ -878,6 +954,10 @@ server <- function(input, output, session) {
     observeEvent(input$radio_seven, {
         shinyjs::enable("button_seven")
         shinyjs::disable("radio_seven")
+        # if(input$radio_seven == 1){
+        #   score <<- score + 1
+        #   print(score)
+        # }
         output$answer_seven <- renderText(
             if(input$radio_seven == 1){
                 "Correct! In Italian, the word espresso literally means \"when something is forced out.\""   
@@ -896,8 +976,12 @@ server <- function(input, output, session) {
     
     output$question_eight <- renderUI({
         div(id = "eight", hidden = TRUE,
+            align = "center",
             h3("Question 8"),
             p("What percent of American adults consume coffee every day?"),
+            img(src = "american_coffee.jpg",
+                height = "300", 
+                width = "50%"),
             br(),br(),
             radioButtons("radio_eight",
                          label = NULL,
@@ -909,6 +993,7 @@ server <- function(input, output, session) {
                                         "80%" = 4)
             ),   
             textOutput("answer_eight"),
+            br(),
             disabled(actionButton("button_eight", "Next Question"))
         )
     })
@@ -921,6 +1006,10 @@ server <- function(input, output, session) {
     observeEvent(input$radio_eight, {
         shinyjs::enable("button_eight")
         shinyjs::disable("radio_eight")
+        # if(input$radio_eight == 3){
+        #   score <<- score + 1
+        #   print(score)
+        # }
         output$answer_eight <- renderText(
             if(input$radio_eight == 3){
                 "Correct! According to a study conducted by the NCA, 64% of American adults consume coffee every day."   
@@ -939,8 +1028,12 @@ server <- function(input, output, session) {
     
     output$question_nine <- renderUI({
         div(id = "nine", hidden = TRUE,
+            align = "center",
             h3("Question 9"),
             p("How old is instant coffee?"),
+            img(src = "time.jpg",
+                height = "300", 
+                width = "50%"),
             br(),br(),
             radioButtons("radio_nine",
                          label = NULL,
@@ -952,6 +1045,7 @@ server <- function(input, output, session) {
                                         "250 years old" = 4)
             ),   
             textOutput("answer_nine"),
+            br(),
             disabled(actionButton("button_nine", "Next Question"))
         )
     })
@@ -964,8 +1058,12 @@ server <- function(input, output, session) {
     observeEvent(input$radio_nine, {
         shinyjs::enable("button_nine")
         shinyjs::disable("radio_nine")
+        # if(input$radio_nine == 4){
+        #   score <<- score + 1
+        #   print(score)
+        # }
         output$answer_nine <- renderText(
-            if(input$radio_nine == 2){
+            if(input$radio_nine == 4){
                 "Correct! Instant coffee is nearly 250 years old, where it made it debuts in England in 1771."   
             }
             else{
@@ -981,8 +1079,12 @@ server <- function(input, output, session) {
     
     output$question_ten <- renderUI({
         div(id = "ten", hidden = TRUE,
+            align = "center",
             h3("Question 10"),
             p("Which two states produce America's coffee?"),
+            img(src = "us_map.jpg",
+                height = "300", 
+                width = "50%"),
             br(),br(),
             radioButtons("radio_ten",
                          label = NULL,
@@ -993,14 +1095,19 @@ server <- function(input, output, session) {
                                         "Arizona and Florida" = 3,
                                         "California and Florida" = 4)
             ),   
-            textOutput("answer_ten")
-            #actionButton("button_ten", "Next Question")
+            textOutput("answer_ten"),
+            br(),
+            #actionButton("button_ten", "See Results")
         )
     })
     
     observeEvent(input$radio_ten, {
-        #shinyjs::enable("button_one")
+        shinyjs::enable("button_ten")
         shinyjs::disable("radio_ten")
+        # if(input$radio_ten == 1){
+        #   score <<- score + 1
+        #   print(score)
+        # }
         output$answer_ten <- renderText(
             if(input$radio_ten == 1){
                 "Correct! Hawaii and California are the only two states that produce coffee. Hawaii used to be the sole producer, but coffee plants were introduced in California in the early 2000s."   
@@ -1013,10 +1120,26 @@ server <- function(input, output, session) {
     })
     
     # observeEvent(input$button_ten, {
-    #     shinyjs::hide(id = "two")
-    #     shinyjs::show(id = "three")
+    #     shinyjs::hide(id = "ten")
+    #     shinyjs::show(id = "results")
     # })
     
+    #########################################################################
+    # See Results
+    #########################################################################
+    
+    
+    # output$see_results <- renderUI({
+    #   
+    #   div(id = "results",
+    #       hidden = TRUE,
+    #       align = "center",
+    #       h3("Results"),
+    #       p("You scored a"),
+    #       h1(gsub(" ", "", paste(score*10,"%"))),
+    #       
+    #   )
+    # })
     
     
 }
