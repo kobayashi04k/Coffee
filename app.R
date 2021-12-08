@@ -27,8 +27,6 @@ world2 <- readOGR(
 # Add country average data to world2
 world2 <- geo_join(world2,
                    coffee_avgs2,
-                   # "FIPS",
-                   # "FIPS",
                    by = "FIPS",
                    how = "left")
 
@@ -428,7 +426,7 @@ server <- function(input, output, session) {
         vars <- c('aroma', 'flavor', 'aftertaste',
                   'acidity', 'sweetness',
                   'total_cup_points', 'kg')
-        
+
         ### Take in user input: use integer input from radio and get string value
         # altitude_input <- country_code[parse_number(input$radio_altitude)]
         
