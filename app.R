@@ -71,7 +71,7 @@ ui <- fluidPage(
                                    fluidRow(
                                        HTML('<center><h4>Process Map</h4></center>'),
                                        br(),
-                                       HTML('<center><img src="placeholder.png" width="400"></center>'),
+                                       HTML('<center><img src="Process_Map.png" width="400"></center>'),
                                        br(),
                                        HTML('<center>
                                                 <p>
@@ -92,7 +92,7 @@ ui <- fluidPage(
                                    fluidRow(
                                        HTML('<center><h4>Journey Map</h4></center>'),
                                        br(),
-                                       HTML('<center><img src="placeholder.png" width="400"></center>'),
+                                       HTML('<center><img src="Journey_Map.png" width="400"></center>'),
                                        br(),
                                        HTML('<center>
                                                 <p>
@@ -111,9 +111,9 @@ ui <- fluidPage(
                                    ),
                                    br(),br(),
                                    fluidRow(
-                                       HTML('<center><h4>Wireframe</h4></center>'),
+                                       HTML('<center><h4>Wireframes</h4></center>'),
                                        br(),
-                                       HTML('<center><img src="placeholder.png" width="400"></center>'),
+                                       HTML('<center><img src="Wireframe2.jpg" width="400"></center>'),
                                        br(),
                                        HTML('<center>
                                                 <p>
