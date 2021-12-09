@@ -222,7 +222,12 @@ ui <- fluidPage(
                                                        wellPanel(
                                                          plotOutput("plot_altitude")
                                                        ),
-                                                       p("Note:")
+                                                       p("The scatter-plot above shows the effect of altitude on reviews 
+                                                         conducted by professional coffee reviewers. By clicking on the 
+                                                         variables on the left panel, users can see the effect of altitude
+                                                         on specific coffee-quality aspect (aroma, flavor, aftertaste, etc.) 
+                                                         they wish to examine. In general, we observe higher ratings for
+                                                         coffee beans grown in higher altitudes.")
                                                      )
                                             ),
 
@@ -344,7 +349,12 @@ ui <- fluidPage(
                                                     plotOutput("plot_radar",
                                                                height = "450px")
                                                   ),
-                                                  p("Note:")
+                                                  p("The radar chart above highlights the weights of different 
+                                                    coffee-quality aspects (aroma, flavor, aftertaste, etc.) of coffee bean, 
+                                                    organized by countries. USers can easily compare the distinct characteristics 
+                                                    and quality of coffee beans from different countries. In general, we observe 
+                                                    high ratings for 'sweetness', 'clean cup' and 'uniformity' across beans grown in 
+                                                    different countries.")
                                                 )
                                             ),
                                             
@@ -388,16 +398,54 @@ ui <- fluidPage(
                             column(10,
                                    h3("Reflections"),
                                    br(),
-                                   p("Suspendisse quis magna dignissim, auctor nisi sit amet, rutrum ante. 
-                                     Aliquam facilisis risus eget lacus consectetur lacinia. Sed fringilla 
-                                     nibh nibh, eu finibus purus egestas non. Suspendisse ipsum ipsum, volutpat 
-                                     sagittis commodo sed, lacinia ut lectus. Maecenas lectus mauris, vestibulum 
-                                     id accumsan non, feugiat et lorem. Maecenas aliquam sodales elit id vestibulum.
-                                     Proin ut mauris volutpat, sodales nisi eu, finibus mauris. Duis euismod, diam a 
-                                     semper pretium, nisl augue aliquet purus, vel facilisis dui nisl a mi. Suspendisse 
-                                     potenti. Aliquam ultrices urna a nunc finibus bibendum. Maecenas rutrum aliquet ante, 
-                                     sit amet pharetra lectus aliquet non. Nulla a quam est. Pellentesque habitant morbi 
-                                     tristique senectus et netus et malesuada fames ac turpis egestas.")
+                                   p("The Coffee Quality project was a capstone project for our course, CSC324
+                                     - Software Development & Design. The final product that we have exhibited here is
+                                     the culmination of what we have learned over the course of fall 2021 
+                                     semester. As a team, we have shown competency in software development skills and techniques like 
+                                     R programming, product management, and effective communication skills. 
+                                     More importantly, we attained hands-on experience of working together as a team to
+                                     create a product for a real-world client."),
+                                   br(),
+                                   p("Overall, the project was a valuable learning experience for all of us because we
+                                     had no prior knowledge about coffee and/or coffee beans. We learned a lot from the data 
+                                     exploration process and analzying the coffee quality reviews. To fill in the gaps in specific 
+                                     domain of knowledge, we also read various published literature and consulted an expert in the coffee 
+                                     industry. More importantly, we learned how to effectively use R programming to develop a Shiny app and
+                                     publish our final product on the web. Here are some our own personal reflections:"),
+                                   br(),
+                                   
+                                   h4("Member 1:"),
+                                   p("\"The project taught me the importance of effective data visualization. Every visualization
+                                        seems to have its own pros and cons, and we need to think about what information we want to
+                                        convey and how to do so effectively. Moreover,it's about quality not quantity -- one good 
+                                       visuazliation that can encapsulate and highlight the characteristics of data is much better
+                                       than multiple rows and colums of charts.\""),
+                                   br(),
+                                   
+                                   h4("Member 2:"),
+                                   p("\"Working on a project was a completely different experience compared to working on 
+                                     in-class R programming exercises. After finding an appropriate dataset, we had to 
+                                     explore, clean, organize, analyze, and visualize the data. The process was exciting but also
+                                     definitely challenging. Working on a project really refined and polished our programming skills.\""),
+                                   br(),
+                                   
+                                   h4("Member 3:"),
+                                   p("\"I realized that finding the dataset for a research project is much more 
+                                     challenging than we originally expected. We spent a fair amount of time
+                                    searching for a dataset we all wanted to work on. More importantly, the quality and the structure of a 
+                                     dataset can ultimately make a significant difference when we are working on
+                                     visualizing the data. We thus need to make sure we clean up the data properly before moving
+                                     on to analyzing.\""),
+                                   br(),
+                                   
+                                   h4("Member 4:"),
+                                   p("\"Throughout the semester, I learned that team chemistry is one of the most 
+                                   important deciding factor in any project, perhaps sometimes even more essential than
+                                     the overall difficuty of a project. Communicating effectively and setting the expectation 
+                                     clear makes it easier for everyone as we work on the project. Furthermore, creating specific
+                                     documents and timeline to keep track of what we have accomplished so far and what we need to
+                                     work on is immensely helpful.\""),
+                                   
                                    )
                             )
                    )
