@@ -40,21 +40,41 @@ ui <- fluidPage(
                    theme = shinytheme("yeti"),
                    
                    tabPanel("Introduction",
-                            tags$img(
-                              src = "half.jpg",
-                              style = 'position: absolute; opacity: 0.7; margin-top: -25px; margin-left: -15px',
-                              width = '100%',
-                              height = '94%'
-                            ),
+                            # tags$img(
+                            #   src = "mono.png",
+                            #   style = 'position: absolute; opacity: 0.7; margin-top: -25px; margin-left: -15px',
+                            #   width = '100%',
+                            #   height = '94%'
+                            # ),
                                 column(1),
-                                column(5,
+                                column(6,
                                        h3("Introduction"),
                                        br(),
-                                       h5("Short Summary"),
-                                       p("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sagittis risus quam, ac fringilla quam feugiat at. Aliquam erat volutpat. Phasellus fringilla sapien ac nulla tempor eleifend. Integer ut neque hendrerit, mollis urna in, posuere turpis. Sed id auctor felis, nec consequat nibh. Integer non vulputate urna. In elementum pellentesque facilisis. Sed accumsan elit nisl, suscipit rutrum felis malesuada ac. Duis fringilla nunc at finibus mollis. Nulla facilisi. Fusce tempor, ipsum id viverra fermentum, augue urna porttitor ligula, sit amet mollis lacus diam sed sem."),
-                                       br(),
-                                       h5("Takeaways"),
-                                       p("In gravida porta egestas. Donec in est id urna vulputate egestas sit amet eu lorem. Fusce posuere lacus non nisl interdum, eget accumsan nisl lacinia. Phasellus posuere porttitor nibh et pulvinar. Suspendisse convallis eget nulla ut faucibus. Donec vitae condimentum lacus. Mauris tristique bibendum metus dictum tempor. Aenean vitae eleifend metus.")
+                                       # h5("Short Summary"),
+                                       p("Welcome to the world of Coffee!
+                                          We (Smells Like Team Spirit) analyzed a dataset which was gathered from the Coffee Quality Institute (CQI). This application provides data visualizations of coffee data from over 30 countries on the arabica coffee plant-species."),
+                                       p("The visualizations provided are:"),
+                                       p("| 1) Map of the world in coffee"),
+                                       p("2) Line graph showing altitude trends with cup points"),
+                                       p("3) Radar chart (spider-web chart) showing the cup points statistics of the various country coffees"),
+                                       p("4) Stacked bar chart showing each country's average cup points"),
+                                       p("5) Trivia questions to test your coffee knowledge!"),
+                                       p("The visualizations provide an easy way for researchers or simply curious individuals to discover the coffee quality information provided by the CQI. However, the information may be confusing and overbearing for someone seeing it for the first time. That's where the introduction comes into play!"),
+                                       p("Within the graphs, we provide information on 10 categories of coffee quality provided by the CQI. These categories are:
+                                          1) Acidity - a form of aftertaste left near the front of the mouth.
+                                          2) Aftertaste - leftover test of the coffee. It can be based on how long the aftertaste stays as well as taste.
+                                          3) Aroma - smell of the coffee. Some aroma descriptors are floral and nutty.
+                                          4) Balance - the balance refers to how well each quality of the coffee balances out and so no one quality overbears another.
+                                          5) Body - also called mouthfeel, essentially how the coffee's body feels when it enters the mouth.
+                                          6) Clean Points - how smooth or dry a coffee feels after a sip.
+                                          7) Cupper Points - a cupper is someone who grades the coffee quality. The cupper points is the average score of the coffee given by the tester.
+                                          ???? Flavor - taste of the coffee.
+                                          9) Sweetness - explaines how smooth the flavor of coffee is. Usually a test against undesirable flavour.
+                                          The main taste of coffee usually sensed at the back of the mouth.
+                                          10) Uniformity - this category talks about how consistent the coffee is based on several cups from the same batch."),
+                                       p("All these categories are usually scored out of 10 and come together to give a Total Cup Point out of 100. This final score, also called the cupping score is what represents the quality of the coffee.
+                                          Now go and explore our world of Coffee application!")
+                                       
                                 ),
                                 # column(5,
                                 #        br(), br(), br(), br(),
@@ -71,20 +91,17 @@ ui <- fluidPage(
                                    fluidRow(
                                        HTML('<center><h4>Process Map</h4></center>'),
                                        br(),
-                                       HTML('<center><img src="placeholder.png" width="400"></center>'),
+                                       HTML('<center><img src="Process_Map.png" width="400"></center>'),
                                        br(),
                                        HTML('<center>
                                                 <p>
-                                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Orci varius 
-                                                 natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
-                                                 Morbi eget felis vel ex laoreet lacinia in at odio. Maecenas imperdiet, 
-                                                 lorem non venenatis elementum, ligula turpis pretium velit, vel facilisis 
-                                                 nibh risus id elit. Suspendisse ac lorem eu lacus mollis fringilla quis non 
-                                                 urna. Vivamus condimentum ante mi, vel congue est aliquam vitae. Suspendisse 
-                                                 tempor molestie volutpat. Suspendisse eu leo et leo sodales ullamcorper ut 
-                                                 aliquet felis. Pellentesque pretium aliquam tortor at tempus. Mauris nunc felis, 
-                                                 placerat vitae lorem a, interdum interdum augue. Sed felis dui, posuere ac nisi 
-                                                 vel, porta tincidunt metus.
+                                                 We began our project by mapping out all of the components in a timeline using a process map. 
+                                                  We broke the project up into 4 weeks, and created a visual diagram showing what we would accomplish 
+                                                  each week. We didn\'t end up sticking to this timeline exactly, however it provided us with a structure 
+                                                  to follow. We spent week 1 making the process map, finding our dataset, and planning for the remaining weeks. 
+                                                  During weeks 2 and 3, we planned out how our app would function, what visualizations we would use, and 
+                                                  started development. In week 4, we finished development of the visualizations as well as the rest of the app, 
+                                                  and documented the project.
                                                 </p>
                                             </center>')
                                    ),
@@ -92,41 +109,33 @@ ui <- fluidPage(
                                    fluidRow(
                                        HTML('<center><h4>Journey Map</h4></center>'),
                                        br(),
-                                       HTML('<center><img src="placeholder.png" width="400"></center>'),
+                                       HTML('<center><img src="Journey_Map.png" width="400"></center>'),
                                        br(),
                                        HTML('<center>
                                                 <p>
-                                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Orci varius 
-                                                 natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
-                                                 Morbi eget felis vel ex laoreet lacinia in at odio. Maecenas imperdiet, 
-                                                 lorem non venenatis elementum, ligula turpis pretium velit, vel facilisis 
-                                                 nibh risus id elit. Suspendisse ac lorem eu lacus mollis fringilla quis non 
-                                                 urna. Vivamus condimentum ante mi, vel congue est aliquam vitae. Suspendisse 
-                                                 tempor molestie volutpat. Suspendisse eu leo et leo sodales ullamcorper ut 
-                                                 aliquet felis. Pellentesque pretium aliquam tortor at tempus. Mauris nunc felis, 
-                                                 placerat vitae lorem a, interdum interdum augue. Sed felis dui, posuere ac nisi 
-                                                 vel, porta tincidunt metus.
+                                                 An important step in week 2 was creating a journey map. This table maps out how we 
+                                                  expect our users to interact with the app, their feelings along the way, and types of 
+                                                  improvement we can make to the app. We defined our target users as researchers or 
+                                                  other individuals curious about exploring data on coffee, and we mapped out how 
+                                                  their interactions with the app can help them learn about the dataset and gain insight 
+                                                  about coffee.
                                                 </p>
                                             </center>')
                                    ),
                                    br(),br(),
                                    fluidRow(
-                                       HTML('<center><h4>Wireframe</h4></center>'),
+                                       HTML('<center><h4>Wireframes</h4></center>'),
                                        br(),
-                                       HTML('<center><img src="placeholder.png" width="400"></center>'),
+                                       HTML('<center><img src="Wireframe2.jpg" width="400"></center>'),
                                        br(),
                                        HTML('<center>
                                                 <p>
-                                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Orci varius 
-                                                 natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
-                                                 Morbi eget felis vel ex laoreet lacinia in at odio. Maecenas imperdiet, 
-                                                 lorem non venenatis elementum, ligula turpis pretium velit, vel facilisis 
-                                                 nibh risus id elit. Suspendisse ac lorem eu lacus mollis fringilla quis non 
-                                                 urna. Vivamus condimentum ante mi, vel congue est aliquam vitae. Suspendisse 
-                                                 tempor molestie volutpat. Suspendisse eu leo et leo sodales ullamcorper ut 
-                                                 aliquet felis. Pellentesque pretium aliquam tortor at tempus. Mauris nunc felis, 
-                                                 placerat vitae lorem a, interdum interdum augue. Sed felis dui, posuere ac nisi 
-                                                 vel, porta tincidunt metus.
+                                                 Also in week 2 we created wireframes to roughly sketch out what we wanted our app 
+                                                  to look like. The image above is of the wireframe for one of the data visualization tabs. 
+                                                  We drew the wireframes on paper, and they show the way we wanted to lay out text, 
+                                                  images, visualizations, and interactive elements on the different screens of the app. We 
+                                                  broke the content of the app into the 5 outer tabs, and then we added a sub-tab for 
+                                                  each visualization under Visualizations.
                                                 </p>
                                             </center>')
                                    ),
@@ -134,20 +143,16 @@ ui <- fluidPage(
                                    fluidRow(
                                        HTML('<center><h4>Screen Mockup</h4></center>'),
                                        br(),
-                                       HTML('<center><img src="placeholder.png" width="400"></center>'),
+                                       HTML('<center><img src="Slide1.png" width="400"></center>'),
                                        br(),
                                        HTML('<center>
                                                 <p>
-                                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Orci varius 
-                                                 natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
-                                                 Morbi eget felis vel ex laoreet lacinia in at odio. Maecenas imperdiet, 
-                                                 lorem non venenatis elementum, ligula turpis pretium velit, vel facilisis 
-                                                 nibh risus id elit. Suspendisse ac lorem eu lacus mollis fringilla quis non 
-                                                 urna. Vivamus condimentum ante mi, vel congue est aliquam vitae. Suspendisse 
-                                                 tempor molestie volutpat. Suspendisse eu leo et leo sodales ullamcorper ut 
-                                                 aliquet felis. Pellentesque pretium aliquam tortor at tempus. Mauris nunc felis, 
-                                                 placerat vitae lorem a, interdum interdum augue. Sed felis dui, posuere ac nisi 
-                                                 vel, porta tincidunt metus.
+                                                 The next step was creating the screen mockup. We originally planned to complete this 
+                                                  during week 3, however we were able to do it ahead of schedule, in week 2. In the 
+                                                  screen mockup, we took the structure and layout from the wireframes and mocked up 
+                                                  what we wanted them to visually look like. We chose a color scheme, layed out the text, 
+                                                  and added images to make the mockup look similar to our plan for the finished app. 
+                                                  The image above is the screen mockup for the Introduction tab.
                                                 </p>
                                             </center>')
                                    ),
@@ -155,20 +160,25 @@ ui <- fluidPage(
                                    fluidRow(
                                        HTML('<center><h4>Accessibility Audit</h4></center>'),
                                        br(),
-                                       HTML('<center><img src="placeholder.png" width="400"></center>'),
-                                       br(),
                                        HTML('<center>
                                                 <p>
-                                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Orci varius 
-                                                 natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
-                                                 Morbi eget felis vel ex laoreet lacinia in at odio. Maecenas imperdiet, 
-                                                 lorem non venenatis elementum, ligula turpis pretium velit, vel facilisis 
-                                                 nibh risus id elit. Suspendisse ac lorem eu lacus mollis fringilla quis non 
-                                                 urna. Vivamus condimentum ante mi, vel congue est aliquam vitae. Suspendisse 
-                                                 tempor molestie volutpat. Suspendisse eu leo et leo sodales ullamcorper ut 
-                                                 aliquet felis. Pellentesque pretium aliquam tortor at tempus. Mauris nunc felis, 
-                                                 placerat vitae lorem a, interdum interdum augue. Sed felis dui, posuere ac nisi 
-                                                 vel, porta tincidunt metus.
+                                                 Many aspects of the app are reasonably accessible. A major part of this is that using 
+                                                  the app does not take a high cognitive load; explanation text by the visualizations 
+                                                  helps users understand how they work, section headings and images in the text-heavy 
+                                                  tabs help users quickly take in the information, users have as much time as they need 
+                                                  to read the content, and the tabs are ordered in a logical progression through the app. 
+                                                  The layout is simple and easy to understand, and the app has responsive design. 
+                                                  Additionally, the majority of the tabs have good high-contrast text.
+                                                </p>
+                                                <p>
+                                                However, there are also several areas that we could make more accessible. Firstly, the 
+                                                Introduction tab uses a background image that reduced the contrast of the text. To 
+                                                make this tab more accessible, we could remove the image behind the text so the text 
+                                                is on a white background. Next, some of the data visualizations, for example the 
+                                                stacked bar chart, use color alone to show information. To avoid this, we could add a 
+                                                pattern to each color so the data is encoded multiple ways. Also, the app is not 
+                                                navigatable by keyboard, and there is no alternate text for the images. Adding both of 
+                                                these functionalities would improve accessibility.
                                                 </p>
                                             </center>'),
                                        br()
@@ -198,7 +208,8 @@ ui <- fluidPage(
                                                        wellPanel(
                                                          leafletOutput("plot_map")
                                                        ),
-                                                       p("Note:")
+                                                       p("Use this map to explore how geography affects various factors of the coffee reviews. 
+                                                         Select a factor to view each country's average score.")
                                                      )
                                             ),
                                             tabPanel("Altitude Graph", 
@@ -264,14 +275,14 @@ ui <- fluidPage(
                                                                                "Papua New Guinea",
                                                                                "Peru",
                                                                                "Philippines",
-                                                                               "Puerto Rico",
+                                                                               "United States (Puerto Rico)",
                                                                                "Rwanda",
                                                                                "Taiwan",
                                                                                "Tanzania",
                                                                                "Thailand",
                                                                                "Uganda",
                                                                                "United States",
-                                                                               "Hawaii",
+                                                                               "United States (Hawaii)",
                                                                                "Vietnam",
                                                                                "Zambia"),
                                                                 multiple = TRUE,
@@ -295,7 +306,7 @@ ui <- fluidPage(
                                                   wellPanel(
                                                     plotOutput("plot_stack")
                                                   ),
-                                                  p("Note:")
+                                                  h5("This graph shows a stacked version of each country's average categories of total cup points. Use the options to filter between countries and their categories.")
                                                 )
                                             ),
                                             
@@ -332,14 +343,14 @@ ui <- fluidPage(
                                                                                "Papua New Guinea",
                                                                                "Peru",
                                                                                "Philippines",
-                                                                               "Puerto Rico",
+                                                                               "United States (Puerto Rico)",
                                                                                "Rwanda",
                                                                                "Taiwan",
                                                                                "Tanzania",
                                                                                "Thailand",
                                                                                "Uganda",
                                                                                "United States",
-                                                                               "Hawaii",
+                                                                               "United States (Hawaii)",
                                                                                "Vietnam",
                                                                                "Zambia"),
                                                                 selected = 1)
@@ -383,16 +394,28 @@ ui <- fluidPage(
                             column(10,
                                    h3("Acknowledgements"),
                                    br(),
-                                   p("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Orci varius 
-                                     natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
-                                     Morbi eget felis vel ex laoreet lacinia in at odio. Maecenas imperdiet, 
-                                     lorem non venenatis elementum, ligula turpis pretium velit, vel facilisis 
-                                     nibh risus id elit. Suspendisse ac lorem eu lacus mollis fringilla quis non 
-                                     urna. Vivamus condimentum ante mi, vel congue est aliquam vitae. Suspendisse 
-                                     tempor molestie volutpat. Suspendisse eu leo et leo sodales ullamcorper ut 
-                                     aliquet felis. Pellentesque pretium aliquam tortor at tempus. Mauris nunc felis, 
-                                     placerat vitae lorem a, interdum interdum augue. Sed felis dui, posuere ac nisi 
-                                     vel, porta tincidunt metus."))),
+                                   h4("Thanks to the following for their help with Coffee Quality!"),
+                                   hr(),
+                                   h5("Professor - Eliott M. Fernanda"),
+                                   br(),
+                                   h5("Alumni Mentor - Cassie Koomijan"),
+                                   br(),
+                                   h5("Data Publisher - Coffee Quality Institute (CQI)"),
+                                   br(),
+                                   h5("Data Source - Ankur Chavda"),
+                                   br(),
+                                   h4("Sources"),
+                                   hr(),
+                                   a("Coffee Quality Institute", href = "https://www.coffeeinstitute.org/"),
+                                   br(),
+                                   a("Coffee Kaggle Dataset",href = "https://www.kaggle.com/ankurchavda/coffee-beans-reviews-by-coffee-quality-institute"),
+                                   br(),
+                                   a("RShiny Widget Gallery",href = "https://shiny.rstudio.com/gallery/widget-gallery.html"),
+                                   br(),
+                                   a("Image Source",href = "https://www.pexels.com/")
+                                   )
+                            ),
+                            
                    tabPanel("Reflections",
                             column(1),
                             column(10,
