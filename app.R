@@ -198,7 +198,8 @@ ui <- fluidPage(
                                                        wellPanel(
                                                          leafletOutput("plot_map")
                                                        ),
-                                                       p("Note:")
+                                                       p("Use this map to explore how geography affects various factors of the coffee reviews. 
+                                                         Select a factor to view each country's average score.")
                                                      )
                                             ),
                                             tabPanel("Altitude Graph", 
