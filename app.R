@@ -47,6 +47,7 @@ ui <- fluidPage(
                                 column(1),
                                 column(6,
                                        h3("Introduction"),
+                                       hr(),
                                        br(),
                                        # h5("Short Summary"),
                                        p("Welcome to the world of Coffee!
@@ -103,6 +104,7 @@ ui <- fluidPage(
                             column(1),
                             column(10,
                                    h3("Design Process"),
+                                   hr(),
                                    br(),
                                    fluidRow(
                                        HTML('<center><h4>Process Map</h4></center>'),
@@ -197,7 +199,7 @@ ui <- fluidPage(
                                                 these functionalities would improve accessibility.
                                                 </p>
                                             </center>'),
-                                       br()
+                                       br(), br()
                                    )
                                 )
                             
@@ -227,7 +229,7 @@ ui <- fluidPage(
                                                        wellPanel(
                                                          leafletOutput("plot_map")
                                                        ),
-                                                       p("Use this map to explore how geography affects various factors of the coffee reviews. 
+                                                       h5("Use this map to explore how geography affects various factors of the coffee reviews. 
                                                          Select a factor to view each country's average score.")
                                                      )
                                             ),
@@ -252,7 +254,7 @@ ui <- fluidPage(
                                                        wellPanel(
                                                          plotOutput("plot_altitude")
                                                        ),
-                                                       p("The scatter-plot above shows the effect of altitude on reviews 
+                                                       h5("The scatter-plot above shows the effect of altitude on reviews 
                                                          conducted by professional coffee reviewers. By clicking on the 
                                                          variables on the left panel, users can see the effect of altitude
                                                          on specific coffee-quality aspect (aroma, flavor, aftertaste, etc.) 
@@ -379,7 +381,7 @@ ui <- fluidPage(
                                                     plotOutput("plot_radar",
                                                                height = "450px")
                                                   ),
-                                                  p("The radar chart above highlights the weights of different 
+                                                  h5("The radar chart above highlights the weights of different 
                                                     coffee-quality aspects (aroma, flavor, aftertaste, etc.) of coffee bean, 
                                                     organized by countries. USers can easily compare the distinct characteristics 
                                                     and quality of coffee beans from different countries. In general, we observe 
@@ -412,8 +414,9 @@ ui <- fluidPage(
                             column(1),
                             column(10,
                                    h3("Acknowledgements"),
+                                   hr(),
                                    br(),
-                                   h4("Thanks to the following for their help with Coffee Quality!"),
+                                   h4("Thanks to the following for their help with Along the Coffee Belt"),
                                    hr(),
                                    h5("Professor - Eliott M. Fernanda"),
                                    br(),
@@ -439,6 +442,7 @@ ui <- fluidPage(
                             column(1),
                             column(10,
                                    h3("Reflections"),
+                                   hr(),
                                    br(),
                                    p("The Coffee Quality project was a capstone project for our course, CSC324
                                      - Software Development & Design. The final product that we have exhibited here is
@@ -487,8 +491,10 @@ ui <- fluidPage(
                                      clear makes it easier for everyone as we work on the project. Furthermore, creating specific
                                      documents and timeline to keep track of what we have accomplished so far and what we need to
                                      work on is immensely helpful.\""),
+                                   br(), br()
                                    
                                    )
+                                   
                             )
                    )
         )
