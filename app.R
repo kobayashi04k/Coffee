@@ -430,11 +430,14 @@ ui <- fluidPage(
                                    hr(),
                                    a("Coffee Quality Institute", href = "https://www.coffeeinstitute.org/"),
                                    br(),
-                                   a("Coffee Kaggle Dataset",href = "https://www.kaggle.com/ankurchavda/coffee-beans-reviews-by-coffee-quality-institute"),
+                                   a("Coffee Kaggle Dataset", href = "https://www.kaggle.com/ankurchavda/coffee-beans-reviews-by-coffee-quality-institute"),
                                    br(),
-                                   a("RShiny Widget Gallery",href = "https://shiny.rstudio.com/gallery/widget-gallery.html"),
+                                   a("Image Source",href = "https://www.pexels.com/"),
                                    br(),
-                                   a("Image Source",href = "https://www.pexels.com/")
+                                   a("Map Data", href = "http://thematicmapping.org/downloads/world_borders.php?fbclid=IwAR2DFnbr0ta7mYN98PzEreVisp3MmRR_IF_G8NdpUR2mP47Z0LE-CfaL8bE"),
+                                   br(),
+                                   a("RShiny Widget Gallery", href = "https://shiny.rstudio.com/gallery/widget-gallery.html"),
+                                  
                                    )
                             ),
                             
