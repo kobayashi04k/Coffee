@@ -40,21 +40,41 @@ ui <- fluidPage(
                    theme = shinytheme("yeti"),
                    
                    tabPanel("Introduction",
-                            tags$img(
-                              src = "mono.png",
-                              style = 'position: absolute; opacity: 0.7; margin-top: -25px; margin-left: -15px',
-                              width = '100%',
-                              height = '94%'
-                            ),
+                            # tags$img(
+                            #   src = "mono.png",
+                            #   style = 'position: absolute; opacity: 0.7; margin-top: -25px; margin-left: -15px',
+                            #   width = '100%',
+                            #   height = '94%'
+                            # ),
                                 column(1),
                                 column(5,
                                        h3("Introduction"),
                                        br(),
-                                       h5("Short Summary"),
-                                       p("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sagittis risus quam, ac fringilla quam feugiat at. Aliquam erat volutpat. Phasellus fringilla sapien ac nulla tempor eleifend. Integer ut neque hendrerit, mollis urna in, posuere turpis. Sed id auctor felis, nec consequat nibh. Integer non vulputate urna. In elementum pellentesque facilisis. Sed accumsan elit nisl, suscipit rutrum felis malesuada ac. Duis fringilla nunc at finibus mollis. Nulla facilisi. Fusce tempor, ipsum id viverra fermentum, augue urna porttitor ligula, sit amet mollis lacus diam sed sem."),
-                                       br(),
-                                       h5("Takeaways"),
-                                       p("In gravida porta egestas. Donec in est id urna vulputate egestas sit amet eu lorem. Fusce posuere lacus non nisl interdum, eget accumsan nisl lacinia. Phasellus posuere porttitor nibh et pulvinar. Suspendisse convallis eget nulla ut faucibus. Donec vitae condimentum lacus. Mauris tristique bibendum metus dictum tempor. Aenean vitae eleifend metus.")
+                                       # h5("Short Summary"),
+                                       p("Welcome to the world of Coffee!
+                                          We (Smells Like Team Spirit) analyzed a dataset which was gathered from the Coffee Quality Institute (CQI). This application provides data visualizations of coffee data from over 30 countries on the arabica coffee plant-species."),
+                                       p("The visualizations provided are:
+                                          1) Map of the world in coffee.
+                                          2) Line graph showing altitude trends with cup points.
+                                          3) Radar chart (spider-web chart) showing the cup points statistics of the various country coffees.
+                                          4) Stacked bar chart showing each country's average cup points.
+                                          5) Trivia questions to test your coffee knowledge!"),
+                                       p("The visualizations provide an easy way for researchers or simply curious individuals to discover the coffee quality information provided by the CQI. However, the information may be confusing and overbearing for someone seeing it for the first time. That's where the introduction comes into play!"),
+                                       p("Within the graphs, we provide information on 10 categories of coffee quality provided by the CQI. These categories are:
+                                          1) Acidity - a form of aftertaste left near the front of the mouth.
+                                          2) Aftertaste - leftover test of the coffee. It can be based on how long the aftertaste stays as well as taste.
+                                          3) Aroma - smell of the coffee. Some aroma descriptors are floral and nutty.
+                                          4) Balance - the balance refers to how well each quality of the coffee balances out and so no one quality overbears another.
+                                          5) Body - also called mouthfeel, essentially how the coffee's body feels when it enters the mouth.
+                                          6) Clean Points - how smooth or dry a coffee feels after a sip.
+                                          7) Cupper Points - a cupper is someone who grades the coffee quality. The cupper points is the average score of the coffee given by the tester.
+                                          ???? Flavor - taste of the coffee.
+                                          9) Sweetness - explaines how smooth the flavor of coffee is. Usually a test against undesirable flavour.
+                                          The main taste of coffee usually sensed at the back of the mouth.
+                                          10) Uniformity - this category talks about how consistent the coffee is based on several cups from the same batch."),
+                                       p("All these categories are usually scored out of 10 and come together to give a Total Cup Point out of 100. This final score, also called the cupping score is what represents the quality of the coffee.
+                                          Now go and explore our world of Coffee application!")
+                                       
                                 ),
                                 # column(5,
                                 #        br(), br(), br(), br(),
@@ -379,7 +399,7 @@ ui <- fluidPage(
                                    br(),
                                    h5("Alumni Mentor - Cassie Koomijan"),
                                    br(),
-                                   h5("Data Publisher - Coffee Quality Institute"),
+                                   h5("Data Publisher - Coffee Quality Institute (CQI)"),
                                    br(),
                                    h5("Data Source - Ankur Chavda"),
                                    br(),
@@ -389,7 +409,9 @@ ui <- fluidPage(
                                    br(),
                                    a("Coffee Kaggle Dataset",href = "https://www.kaggle.com/ankurchavda/coffee-beans-reviews-by-coffee-quality-institute"),
                                    br(),
-                                   a("RShiny Widget Gallery",href = "https://shiny.rstudio.com/gallery/widget-gallery.html")
+                                   a("RShiny Widget Gallery",href = "https://shiny.rstudio.com/gallery/widget-gallery.html"),
+                                   br(),
+                                   a("Image Source",href = "https://www.pexels.com/")
                                    )
                             ),
                             
