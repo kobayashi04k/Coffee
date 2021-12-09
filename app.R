@@ -1,6 +1,7 @@
 library(tidyverse)
 library(shiny)
 library(shinythemes)
+library(shinyWidgets)
 library(shinyjs)
 library(leaflet)
 library(fmsb)
@@ -33,12 +34,9 @@ world2 <- geo_join(world2,
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
-    #shinythemes::themeSelector(),
     fluidRow(
-
         navbarPage(NULL, 
                    theme = shinytheme("yeti"),
-                   
                    tabPanel("Introduction",
                             # tags$img(
                             #   src = "mono.png",
@@ -197,6 +195,9 @@ ui <- fluidPage(
                             
                             ),
                    tabPanel("Visualizations",
+                            tags$style(HTML("
+                                  .tabbable > .nav > li > a {background-color: #593B2A;  color:white}
+                                ")),
                                 tabsetPanel(type = "tabs",
                                             tabPanel("Map",
                                                      br(),
