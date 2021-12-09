@@ -75,16 +75,13 @@ ui <- fluidPage(
                                        br(),
                                        HTML('<center>
                                                 <p>
-                                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Orci varius 
-                                                 natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
-                                                 Morbi eget felis vel ex laoreet lacinia in at odio. Maecenas imperdiet, 
-                                                 lorem non venenatis elementum, ligula turpis pretium velit, vel facilisis 
-                                                 nibh risus id elit. Suspendisse ac lorem eu lacus mollis fringilla quis non 
-                                                 urna. Vivamus condimentum ante mi, vel congue est aliquam vitae. Suspendisse 
-                                                 tempor molestie volutpat. Suspendisse eu leo et leo sodales ullamcorper ut 
-                                                 aliquet felis. Pellentesque pretium aliquam tortor at tempus. Mauris nunc felis, 
-                                                 placerat vitae lorem a, interdum interdum augue. Sed felis dui, posuere ac nisi 
-                                                 vel, porta tincidunt metus.
+                                                 We began our project by mapping out all of the components in a timeline using a process map. 
+                                                  We broke the project up into 4 weeks, and created a visual diagram showing what we would accomplish 
+                                                  each week. We didn\'t end up sticking to this timeline exactly, however it provided us with a structure 
+                                                  to follow. We spent week 1 making the process map, finding our dataset, and planning for the remaining weeks. 
+                                                  During weeks 2 and 3, we planned out how our app would function, what visualizations we would use, and 
+                                                  started development. In week 4, we finished development of the visualizations as well as the rest of the app, 
+                                                  and documented the project.
                                                 </p>
                                             </center>')
                                    ),
@@ -96,16 +93,12 @@ ui <- fluidPage(
                                        br(),
                                        HTML('<center>
                                                 <p>
-                                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Orci varius 
-                                                 natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
-                                                 Morbi eget felis vel ex laoreet lacinia in at odio. Maecenas imperdiet, 
-                                                 lorem non venenatis elementum, ligula turpis pretium velit, vel facilisis 
-                                                 nibh risus id elit. Suspendisse ac lorem eu lacus mollis fringilla quis non 
-                                                 urna. Vivamus condimentum ante mi, vel congue est aliquam vitae. Suspendisse 
-                                                 tempor molestie volutpat. Suspendisse eu leo et leo sodales ullamcorper ut 
-                                                 aliquet felis. Pellentesque pretium aliquam tortor at tempus. Mauris nunc felis, 
-                                                 placerat vitae lorem a, interdum interdum augue. Sed felis dui, posuere ac nisi 
-                                                 vel, porta tincidunt metus.
+                                                 An important step in week 2 was creating a journey map. This table maps out how we 
+                                                  expect our users to interact with the app, their feelings along the way, and types of 
+                                                  improvement we can make to the app. We defined our target users as researchers or 
+                                                  other individuals curious about exploring data on coffee, and we mapped out how 
+                                                  their interactions with the app can help them learn about the dataset and gain insight 
+                                                  about coffee.
                                                 </p>
                                             </center>')
                                    ),
@@ -117,16 +110,12 @@ ui <- fluidPage(
                                        br(),
                                        HTML('<center>
                                                 <p>
-                                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Orci varius 
-                                                 natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
-                                                 Morbi eget felis vel ex laoreet lacinia in at odio. Maecenas imperdiet, 
-                                                 lorem non venenatis elementum, ligula turpis pretium velit, vel facilisis 
-                                                 nibh risus id elit. Suspendisse ac lorem eu lacus mollis fringilla quis non 
-                                                 urna. Vivamus condimentum ante mi, vel congue est aliquam vitae. Suspendisse 
-                                                 tempor molestie volutpat. Suspendisse eu leo et leo sodales ullamcorper ut 
-                                                 aliquet felis. Pellentesque pretium aliquam tortor at tempus. Mauris nunc felis, 
-                                                 placerat vitae lorem a, interdum interdum augue. Sed felis dui, posuere ac nisi 
-                                                 vel, porta tincidunt metus.
+                                                 Also in week 2 we created wireframes to roughly sketch out what we wanted our app 
+                                                  to look like. The image above is of the wireframe for one of the data visualization tabs. 
+                                                  We drew the wireframes on paper, and they show the way we wanted to lay out text, 
+                                                  images, visualizations, and interactive elements on the different screens of the app. We 
+                                                  broke the content of the app into the 5 outer tabs, and then we added a sub-tab for 
+                                                  each visualization under Visualizations.
                                                 </p>
                                             </center>')
                                    ),
@@ -138,16 +127,12 @@ ui <- fluidPage(
                                        br(),
                                        HTML('<center>
                                                 <p>
-                                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Orci varius 
-                                                 natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
-                                                 Morbi eget felis vel ex laoreet lacinia in at odio. Maecenas imperdiet, 
-                                                 lorem non venenatis elementum, ligula turpis pretium velit, vel facilisis 
-                                                 nibh risus id elit. Suspendisse ac lorem eu lacus mollis fringilla quis non 
-                                                 urna. Vivamus condimentum ante mi, vel congue est aliquam vitae. Suspendisse 
-                                                 tempor molestie volutpat. Suspendisse eu leo et leo sodales ullamcorper ut 
-                                                 aliquet felis. Pellentesque pretium aliquam tortor at tempus. Mauris nunc felis, 
-                                                 placerat vitae lorem a, interdum interdum augue. Sed felis dui, posuere ac nisi 
-                                                 vel, porta tincidunt metus.
+                                                 The next step was creating the screen mockup. We originally planned to complete this 
+                                                  during week 3, however we were able to do it ahead of schedule, in week 2. In the 
+                                                  screen mockup, we took the structure and layout from the wireframes and mocked up 
+                                                  what we wanted them to visually look like. We chose a color scheme, layed out the text, 
+                                                  and added images to make the mockup look similar to our plan for the finished app. 
+                                                  The image above is the screen mockup for the Introduction tab.
                                                 </p>
                                             </center>')
                                    ),
