@@ -41,7 +41,7 @@ ui <- fluidPage(
                    
                    tabPanel("Introduction",
                             tags$img(
-                              src = "half.jpg",
+                              src = "mono.png",
                               style = 'position: absolute; opacity: 0.7; margin-top: -25px; margin-left: -15px',
                               width = '100%',
                               height = '94%'
@@ -259,14 +259,14 @@ ui <- fluidPage(
                                                                                "Papua New Guinea",
                                                                                "Peru",
                                                                                "Philippines",
-                                                                               "Puerto Rico",
+                                                                               "United States (Puerto Rico)",
                                                                                "Rwanda",
                                                                                "Taiwan",
                                                                                "Tanzania",
                                                                                "Thailand",
                                                                                "Uganda",
                                                                                "United States",
-                                                                               "Hawaii",
+                                                                               "United States (Hawaii)",
                                                                                "Vietnam",
                                                                                "Zambia"),
                                                                 multiple = TRUE,
@@ -327,14 +327,14 @@ ui <- fluidPage(
                                                                                "Papua New Guinea",
                                                                                "Peru",
                                                                                "Philippines",
-                                                                               "Puerto Rico",
+                                                                               "United States (Puerto Rico)",
                                                                                "Rwanda",
                                                                                "Taiwan",
                                                                                "Tanzania",
                                                                                "Thailand",
                                                                                "Uganda",
                                                                                "United States",
-                                                                               "Hawaii",
+                                                                               "United States (Hawaii)",
                                                                                "Vietnam",
                                                                                "Zambia"),
                                                                 selected = 1)
@@ -373,16 +373,26 @@ ui <- fluidPage(
                             column(10,
                                    h3("Acknowledgements"),
                                    br(),
-                                   p("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Orci varius 
-                                     natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
-                                     Morbi eget felis vel ex laoreet lacinia in at odio. Maecenas imperdiet, 
-                                     lorem non venenatis elementum, ligula turpis pretium velit, vel facilisis 
-                                     nibh risus id elit. Suspendisse ac lorem eu lacus mollis fringilla quis non 
-                                     urna. Vivamus condimentum ante mi, vel congue est aliquam vitae. Suspendisse 
-                                     tempor molestie volutpat. Suspendisse eu leo et leo sodales ullamcorper ut 
-                                     aliquet felis. Pellentesque pretium aliquam tortor at tempus. Mauris nunc felis, 
-                                     placerat vitae lorem a, interdum interdum augue. Sed felis dui, posuere ac nisi 
-                                     vel, porta tincidunt metus."))),
+                                   h4("Thanks to the following for their help with Coffee Quality!"),
+                                   hr(),
+                                   h5("Professor - Eliott M. Fernanda"),
+                                   br(),
+                                   h5("Alumni Mentor - Cassie Koomijan"),
+                                   br(),
+                                   h5("Data Publisher - Coffee Quality Institute"),
+                                   br(),
+                                   h5("Data Source - Ankur Chavda"),
+                                   br(),
+                                   h4("Sources"),
+                                   hr(),
+                                   a("Coffee Quality Institute", href = "https://www.coffeeinstitute.org/"),
+                                   br(),
+                                   a("Coffee Kaggle Dataset",href = "https://www.kaggle.com/ankurchavda/coffee-beans-reviews-by-coffee-quality-institute"),
+                                   br(),
+                                   a("RShiny Widget Gallery",href = "https://shiny.rstudio.com/gallery/widget-gallery.html")
+                                   )
+                            ),
+                            
                    tabPanel("Reflections",
                             column(1),
                             column(10,
