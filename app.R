@@ -140,20 +140,25 @@ ui <- fluidPage(
                                    fluidRow(
                                        HTML('<center><h4>Accessibility Audit</h4></center>'),
                                        br(),
-                                       HTML('<center><img src="placeholder.png" width="400"></center>'),
-                                       br(),
                                        HTML('<center>
                                                 <p>
-                                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Orci varius 
-                                                 natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
-                                                 Morbi eget felis vel ex laoreet lacinia in at odio. Maecenas imperdiet, 
-                                                 lorem non venenatis elementum, ligula turpis pretium velit, vel facilisis 
-                                                 nibh risus id elit. Suspendisse ac lorem eu lacus mollis fringilla quis non 
-                                                 urna. Vivamus condimentum ante mi, vel congue est aliquam vitae. Suspendisse 
-                                                 tempor molestie volutpat. Suspendisse eu leo et leo sodales ullamcorper ut 
-                                                 aliquet felis. Pellentesque pretium aliquam tortor at tempus. Mauris nunc felis, 
-                                                 placerat vitae lorem a, interdum interdum augue. Sed felis dui, posuere ac nisi 
-                                                 vel, porta tincidunt metus.
+                                                 Many aspects of the app are reasonably accessible. A major part of this is that using 
+                                                  the app does not take a high cognitive load; explanation text by the visualizations 
+                                                  helps users understand how they work, section headings and images in the text-heavy 
+                                                  tabs help users quickly take in the information, users have as much time as they need 
+                                                  to read the content, and the tabs are ordered in a logical progression through the app. 
+                                                  The layout is simple and easy to understand, and the app has responsive design. 
+                                                  Additionally, the majority of the tabs have good high-contrast text.
+                                                </p>
+                                                <p>
+                                                However, there are also several areas that we could make more accessible. Firstly, the 
+                                                Introduction tab uses a background image that reduced the contrast of the text. To 
+                                                make this tab more accessible, we could remove the image behind the text so the text 
+                                                is on a white background. Next, some of the data visualizations, for example the 
+                                                stacked bar chart, use color alone to show information. To avoid this, we could add a 
+                                                pattern to each color so the data is encoded multiple ways. Also, the app is not 
+                                                navigatable by keyboard, and there is no alternate text for the images. Adding both of 
+                                                these functionalities would improve accessibility.
                                                 </p>
                                             </center>'),
                                        br()
