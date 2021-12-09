@@ -52,34 +52,52 @@ ui <- fluidPage(
                                        p("Welcome to the world of Coffee!
                                           We (Smells Like Team Spirit) analyzed a dataset which was gathered from the Coffee Quality Institute (CQI). This application provides data visualizations of coffee data from over 30 countries on the arabica coffee plant-species."),
                                        p("The visualizations provided are:"),
-                                       p("| 1) Map of the world in coffee"),
-                                       p("2) Line graph showing altitude trends with cup points"),
-                                       p("3) Radar chart (spider-web chart) showing the cup points statistics of the various country coffees"),
-                                       p("4) Stacked bar chart showing each country's average cup points"),
-                                       p("5) Trivia questions to test your coffee knowledge!"),
+                                       HTML("
+                                            <li>Map of the world in coffee</li>
+                                            <li>Line graph showing altitude trends with cup points</li>
+                                            <li>Radar chart showing the cup points statistics of various countries</li>
+                                            <li>Stacked bar chart showing each country's average cup points</li>
+                                            <li>Trivia questions to test your coffee knowledge!</li>
+                                            "),
+                                       br(),
                                        p("The visualizations provide an easy way for researchers or simply curious individuals to discover the coffee quality information provided by the CQI. However, the information may be confusing and overbearing for someone seeing it for the first time. That's where the introduction comes into play!"),
-                                       p("Within the graphs, we provide information on 10 categories of coffee quality provided by the CQI. These categories are:
-                                          1) Acidity - a form of aftertaste left near the front of the mouth.
-                                          2) Aftertaste - leftover test of the coffee. It can be based on how long the aftertaste stays as well as taste.
-                                          3) Aroma - smell of the coffee. Some aroma descriptors are floral and nutty.
-                                          4) Balance - the balance refers to how well each quality of the coffee balances out and so no one quality overbears another.
-                                          5) Body - also called mouthfeel, essentially how the coffee's body feels when it enters the mouth.
-                                          6) Clean Points - how smooth or dry a coffee feels after a sip.
-                                          7) Cupper Points - a cupper is someone who grades the coffee quality. The cupper points is the average score of the coffee given by the tester.
-                                          ???? Flavor - taste of the coffee.
-                                          9) Sweetness - explaines how smooth the flavor of coffee is. Usually a test against undesirable flavour.
-                                          The main taste of coffee usually sensed at the back of the mouth.
-                                          10) Uniformity - this category talks about how consistent the coffee is based on several cups from the same batch."),
+                                       p("Within the graphs, we provide information on 10 categories of coffee quality provided by the CQI."),
+                                       p("1) Acidity - a form of aftertaste left near the front of the mouth"),
+                                       p("2) Aftertaste - leftover test of the coffee. It can be based on how long the aftertaste stays as well as taste"),
+                                       p("3) Aroma - smell of the coffee. Some aroma descriptors are floral and nutty"),
+                                       p("4) Balance - the balance refers to how well each quality of the coffee balances out and so no one quality overbears another"),
+                                       p("5) Body - also called mouthfeel, essentially how the coffee's body feels when it enters the mouth"),
+                                       p("6) Clean Points - how smooth or dry a coffee feels after a sip."),
+                                       p("7) Cupper Points - a cupper is someone who grades the coffee quality. The cupper points is the average score of the coffee given by the tester"),
+                                       p("8) Flavor - taste of the coffee"),
+                                       p("9) Sweetness - explaines how smooth the flavor of coffee is. Usually a test against undesirable flavour. The main taste of coffee usually sensed at the back of the mouth."),
+                                       p("10) Uniformity - this category talks about how consistent the coffee is based on several cups from the same batch."),
                                        p("All these categories are usually scored out of 10 and come together to give a Total Cup Point out of 100. This final score, also called the cupping score is what represents the quality of the coffee.
                                           Now go and explore our world of Coffee application!")
                                        
                                 ),
-                                # column(5,
-                                #        br(), br(), br(), br(),
-                                #        img(src = "background.jpg",
-                                #            height = "500",
-                                #            width = "100%")
-                                # )
+                                column(1),
+                                column(4,
+                                       br(), br(), br(), br(),
+                                       # tags$img(
+                                       #   src = "coffee_collage3.png",
+                                       #   style = 'margin-left: -350px; padding-right: -1000px',
+                                       #   width = '1000',
+                                       #   height = '1000'
+                                       # )
+                                       img(src = "v0.jpg",
+                                           height = "300",
+                                           width = "70%"),
+                                       br(), br(),
+                                       img(src = "v1.jpg",
+                                           height = "300",
+                                           width = "70%"),
+                                       br(), br(),
+                                       img(src = "background.jpg",
+                                           height = "300",
+                                           width = "70%")
+                                       
+                                )
                             ),
                    tabPanel("Design Process",
                             column(1),
