@@ -38,7 +38,6 @@ ui <- fluidPage(
 
         navbarPage(NULL, 
                    theme = shinytheme("yeti"),
-                   
                    tabPanel("Introduction",
                             # tags$img(
                             #   src = "mono.png",
