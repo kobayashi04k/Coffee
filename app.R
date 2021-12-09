@@ -47,18 +47,18 @@ ui <- fluidPage(
                             #   height = '94%'
                             # ),
                                 column(1),
-                                column(5,
+                                column(6,
                                        h3("Introduction"),
                                        br(),
                                        # h5("Short Summary"),
                                        p("Welcome to the world of Coffee!
                                           We (Smells Like Team Spirit) analyzed a dataset which was gathered from the Coffee Quality Institute (CQI). This application provides data visualizations of coffee data from over 30 countries on the arabica coffee plant-species."),
-                                       p("The visualizations provided are:
-                                          1) Map of the world in coffee.
-                                          2) Line graph showing altitude trends with cup points.
-                                          3) Radar chart (spider-web chart) showing the cup points statistics of the various country coffees.
-                                          4) Stacked bar chart showing each country's average cup points.
-                                          5) Trivia questions to test your coffee knowledge!"),
+                                       p("The visualizations provided are:"),
+                                       p("| 1) Map of the world in coffee"),
+                                       p("2) Line graph showing altitude trends with cup points"),
+                                       p("3) Radar chart (spider-web chart) showing the cup points statistics of the various country coffees"),
+                                       p("4) Stacked bar chart showing each country's average cup points"),
+                                       p("5) Trivia questions to test your coffee knowledge!"),
                                        p("The visualizations provide an easy way for researchers or simply curious individuals to discover the coffee quality information provided by the CQI. However, the information may be confusing and overbearing for someone seeing it for the first time. That's where the introduction comes into play!"),
                                        p("Within the graphs, we provide information on 10 categories of coffee quality provided by the CQI. These categories are:
                                           1) Acidity - a form of aftertaste left near the front of the mouth.
@@ -310,7 +310,7 @@ ui <- fluidPage(
                                                   wellPanel(
                                                     plotOutput("plot_stack")
                                                   ),
-                                                  p("Note:")
+                                                  h5("This graph shows a stacked version of each country's average categories of total cup points. Use the options to filter between countries and their categories.")
                                                 )
                                             ),
                                             
