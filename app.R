@@ -134,7 +134,7 @@ ui <- fluidPage(
                                    fluidRow(
                                        HTML('<center><h4>Screen Mockup</h4></center>'),
                                        br(),
-                                       HTML('<center><img src="placeholder.png" width="400"></center>'),
+                                       HTML('<center><img src="Slide1.png" width="400"></center>'),
                                        br(),
                                        HTML('<center>
                                                 <p>
